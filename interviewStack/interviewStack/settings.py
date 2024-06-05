@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    # rest framework
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +56,6 @@ MIDDLEWARE = [
     #allauth account middleware
     'allauth.account.middleware.AccountMiddleware',
 ]
-
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -108,6 +109,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Rest Framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 ROOT_URLCONF = 'interviewStack.urls'
 WSGI_APPLICATION = 'interviewStack.wsgi.application'
