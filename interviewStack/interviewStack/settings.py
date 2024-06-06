@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # rest framework
     'rest_framework',
+    # interviewStack apps
+    'api',
 ]
 
 MIDDLEWARE = [
