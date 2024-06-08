@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Django Site{% endblock %}</title>
+    <link rel="icon" href="" type="image/png" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script src="{% static 'tailwind.config.js' %}"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar bg-base-200">
+            <div class="navbar-start">
+                <a class="btn btn-ghost normal-case text-xl" href="{% url 'home' %}">MySite</a>
+            </div>
+            <div class="navbar-center hidden lg:flex">
+                <ul class="menu menu-horizontal px-1">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+            <div class="navbar-end">
+                <a class="btn" href="{% url 'login' %}">Login</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <!-- Footer content can go here -->
+        {% block footer %}
+        {% endblock %}
+    </footer>
+    {% block extra_scripts %}
+    {% endblock %}
+</body>
+</html>
