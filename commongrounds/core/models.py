@@ -44,6 +44,6 @@ class Venue(models.Model):
 
 class Schedule(models.Model):
     consumer = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
-    provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
     timing = models.ForeignKey(Timings, on_delete=models.CASCADE)
