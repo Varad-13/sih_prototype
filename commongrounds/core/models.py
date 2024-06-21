@@ -25,18 +25,16 @@ class Locality(models.Model):
     place_name = models.TextField()
     state = models.ForeignKey(State, on_delete=models.CASCADE)
 
-class Provider(models.Model):
-    provider = models.OneToOneField(Userprofile, on_delete=models.CASCADE)
-    locality = models.ForeignKey(Locality, on_delete=models.CASCADE)
-
-class Service(models.Model):
-    service_type = models.ForeignKey(ServiceTypes, on_delete=CASCADE)
-    provider = models.ForeignKey(Provider, on_delete=CASCADE)
-    rate = models.FloatField()
-
 class ServiceTypes(models.Model):
     service_name = models.TextField()
     service_category = models.TextField()
+
+class Service(models.Model):
+    service_type = models.ForeignKey(ServiceTypes, on_delete=models.CASCADE)
+    provider = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
+    timings = models.ForeignKey(Timings, on_delete=models.CASCADE)
+    rate = models.FloatField()
+    locality = models.ForeignKey(Locality, on_delete=models.CASCADE)
 
 class Venue(models.Model):
     venue_name = models.TextField()
