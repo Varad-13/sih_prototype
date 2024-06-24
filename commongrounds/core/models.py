@@ -32,6 +32,7 @@ class ServiceTypes(models.Model):
 class Service(models.Model):
     service_type = models.ForeignKey(ServiceTypes, on_delete=models.CASCADE)
     provider = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
+    description = models.TextField()
     timings = models.ForeignKey(Timings, on_delete=models.CASCADE)
     rate = models.FloatField()
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE)
@@ -39,7 +40,9 @@ class Service(models.Model):
 class Venue(models.Model):
     venue_name = models.TextField()
     venue_images = models.ManyToManyField(Image)
+    timings = models.ForeignKey(Timings, on_delete=models.CASCADE)
     description = models.TextField()
+    rate = models.FloatField()
     locality = models.ForeignKey(Locality, on_delete=models.CASCADE)
 
 class Schedule(models.Model):
