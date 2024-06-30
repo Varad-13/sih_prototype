@@ -38,9 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # allauth apps
+    "allauth_ui",
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    "widget_tweaks",
+    "slippers",
     # rest framework
     'rest_framework',
     # commongrounds apps
