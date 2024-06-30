@@ -6,6 +6,7 @@ class Image(models.Model):
     file = models.ImageField(upload_to='images/')
 
 class Userprofile(models.Model):
+    name = models.TextField()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_image = models.ForeignKey(Image, on_delete=models.CASCADE)
     bio = models.TextField()

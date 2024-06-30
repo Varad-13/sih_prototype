@@ -1,10 +1,16 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 
 
 def index(request):
+    if request.user.is_authenticated:
+        try:
+            user_profile = Userprofile.objects.get(user=request.user)
+        except:
+            print("User Profile not found")
+            return redirect("/add_user")
     return render(request, 'core/index.html')
 
 def explore(request):
@@ -29,3 +35,28 @@ def schedule(request):
     }
     
     return render(request, 'core/schedule.html', context)
+
+@login_required
+def user_creation(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        bio = request.POST.get('bio')
+        user_type = request.POST.get('user_type')
+        profile_image_file = request.FILES.get('profile_image')
+
+        # Save the image
+        image = Image(file=profile_image_file)
+        image.save()
+
+        # Create and save the user profile
+        user_profile = Userprofile(
+            user=request.user,
+            profile_image=image,
+            bio=bio,
+            user_type=user_type
+        )
+        user_profile.save()
+
+        return redirect('index') 
+    else:
+        return render(request, 'core/user_onboarding.html')

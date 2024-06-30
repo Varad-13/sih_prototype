@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="h-full flex flex-grow p-4 sm:ml-64 flex-col items-center justify-center">
+        <div class="bg-white text-gray-700 dark:bg-gray-700 dark:text-white rounded-lg shadow-lg p-6">
+            <h2 class=" text-2xl font-bold mb-4">Add User Profile</h2>
+            <form action="" method="post" enctype="multipart/form-data" class="mt-6">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="name" class="block  text-sm font-bold mb-2">Name:</label>
+                    <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="mb-4">
+                    <label for="bio" class="block  text-sm font-bold mb-2">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="user_type" class="block  text-sm font-bold mb-2">User Type:</label>
+                    <input type="text" id="user_type" name="user_type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="mb-4">
+                    <label for="profile_image" class="block  text-sm font-bold mb-2">Profile Image:</label>
+                    <input type="file" id="profile_image" name="profile_image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Save Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
