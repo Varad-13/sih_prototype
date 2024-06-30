@@ -2,17 +2,17 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Chatbot Interface{% endblock %}</title>
-        
+        <title>{% block title %}{% endblock %} | CommonGrounds</title>
+        {% load static %}
         <!-- Tailwind CSS and Flowbite -->
-        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+        <link href="{% static 'core/css/tailwind.min.css' %}" rel="stylesheet">
+        <link href="{% static 'core/css/flowbite.min.css' %}" rel="stylesheet" />
+        <script src="{% static 'core/js/flowbite.min.js' %}"></script>
 
         <!-- Material Icons -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
         <!-- HTMX -->
-        <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+        <script src="{% static 'core/js/htmx.min.js' %}"></script>
 
         <style>
             .material-symbols-rounded {
@@ -33,89 +33,102 @@
             }   
         </script>
     </head>
-    <body class="bg-gray-50 dark:bg-gray-800">
-        <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-            <span class="sr-only">Open sidebar</span>
-            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
-            </svg>
-         </button>
+
+    <body class="bg-gray-50 dark:bg-gray-900">
+      <div class="h-screen flex flex-col">
+         <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+            <div class="flex-1 text-center">
+                CommonGrounds
+            </div>
+        </button>
+             
          
          <aside id="separator-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
             <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 flex flex-col justify-between">
-                <ul class="space-y-2 font-medium">
-                   <li>
-                      <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                         <span class="ms-3">CommonGrounds</span>
-                      </a>
-                   </li>
-                   <li>
-                      <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                         <span class="material-symbols-outlined">
-                             explore
-                         </span>
-                         <span class="flex-1 ms-3 whitespace-nowrap">Explore</span>
-                      </a>
-                   </li>
-                   <li>
-                      <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                         <span class="material-symbols-outlined">
-                             location_city
-                         </span>
-                         <span class="flex-1 ms-3 whitespace-nowrap">Venues</span>
-                      </a>
-                   </li>
-                   <li>
-                      <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                         <span class="material-symbols-outlined">
-                             groups
-                         </span>
-                         <span class="flex-1 ms-3 whitespace-nowrap">People</span>
-                      </a>
-                   </li>
-                </ul>
-                <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                   <li>
-                      <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                         <span class="material-symbols-outlined">
-                             upcoming
-                         </span>
-                         <span class="flex-1 ms-3 whitespace-nowrap">Schedule</span>
-                      </a>
-                   </li>
-                   <li>
-                      <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                         <span class="material-symbols-outlined">
-                             login
-                         </span>
-                         <span class="flex-1 ms-3 whitespace-nowrap">Sign In</span>
-                      </a>
-                   </li>
-                   <li>
-                      <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                         <span class="material-symbols-outlined">
-                             person_add
-                         </span>
-                         <span class="flex-1 ms-3 whitespace-nowrap">Sign Up</span>
-                      </a>
-                   </li>
-                </ul>
-             </div>
-             
+               <ul class="space-y-2 font-medium">
+                  <li>
+                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="ms-3">CommonGrounds</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="material-symbols-outlined">
+                           explore
+                        </span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Explore</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="material-symbols-outlined">
+                           location_city
+                        </span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Venues</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="material-symbols-outlined">
+                           groups
+                        </span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">People</span>
+                     </a>
+                  </li>
+               </ul>
+               <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+                  <li>
+                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="material-symbols-outlined">
+                           forum
+                        </span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="material-symbols-outlined">
+                           upcoming
+                        </span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Schedule</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="material-symbols-outlined">
+                           person_add
+                        </span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Sign Up</span>
+                     </a>
+                  </li>
+               </ul>
+            </div>
          </aside>
-         
-         <div class="p-4 sm:ml-64 bg-gray-50 dark:bg-gray-800">
-            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-                {% block content %}
-                {% endblock %}
-             </div>
+
+         <div class="h-full flex-shrink p-4 sm:ml-64 flex-col justify-end overflow-y-auto">
+            <!-- Message Area -->
+            <div class="message-area mb-4 ">
+               <div class="flex flex-col justify-end gap-2.5" >
+                  {% block messages %}{% endblock %}
+               </div>
+            </div>
          </div>
-         
-    </body>
+
+         <div class="flex-1 p-4 sm:ml-64 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+            <!-- Chat Box -->
+            <div class="inline-flex w-full gap-4">
+               <input type="search" id="search-dropdown" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search" required />
+               <button type="button" class="px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                  <span class="material-symbols-outlined">
+                     send
+                  </span>
+               </button>
+            </div>
+         </div>
+      </div>
+   </body>
+   
 </html>
-
-
-
-
-
-
