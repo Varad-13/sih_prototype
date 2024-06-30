@@ -1,8 +1,8 @@
 {% extends 'core/base.html' %}
-{% block title %}Schedule - {{ request.user.username }}{% endblock %}
+{% block title %}Schedule - {{ userprofile.name }}{% endblock %}
 {% block content %}
 <div class="h-full flex-shrink p-4 sm:ml-64 flex-col justify-end overflow-y-auto">
-    <h2 class="text-2xl font-bold mb-4 dark:text-gray-400">Schedule for {{ request.user.username }}</h2>
+    <h2 class="text-2xl font-bold mb-4 dark:text-white">{{ userprofile.name }}'s Events</h2>
     {% if schedules %}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for schedule in schedules %}
@@ -54,7 +54,7 @@
             {% endfor %}
         </div>
     {% else %}
-        <p class="text-gray-700">No schedules found.</p>
+        <p class="text-gray-700 dark:text-white">No schedules found.</p>
     {% endif %}
 </div>
 {% endblock %}
