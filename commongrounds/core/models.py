@@ -25,6 +25,13 @@ class Locality(models.Model):
     place_name = models.TextField()
     state = models.ForeignKey(State, on_delete=models.CASCADE)
 
+class Address(models.Model):
+    address_line_1 = models.TextField()
+    address_line_2 = models.TextField()
+    street_name = models.TextField()
+    Locality = models.ForeignKey(Locality, on_delete=models.CASCADE)
+    google_link = models.URLField(null=True, blank=True)
+
 class ServiceTypes(models.Model):
     service_name = models.TextField()
     service_category = models.TextField()
@@ -44,7 +51,7 @@ class Venue(models.Model):
     timings = models.ForeignKey(Timings, on_delete=models.CASCADE)
     description = models.TextField()
     rate = models.FloatField()
-    locality = models.ForeignKey(Locality, on_delete=models.CASCADE)
+    address = models.ForeignKey(Address, on_delete=models.CASCADE)
 
 class Schedule(models.Model):
     consumer = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
