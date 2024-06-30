@@ -40,6 +40,7 @@ class Service(models.Model):
 class Venue(models.Model):
     venue_name = models.TextField()
     venue_images = models.ManyToManyField(Image)
+    venue_manager = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
     timings = models.ForeignKey(Timings, on_delete=models.CASCADE)
     description = models.TextField()
     rate = models.FloatField()

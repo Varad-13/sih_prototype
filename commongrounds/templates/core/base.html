@@ -12,7 +12,7 @@
         <!-- Material Icons -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
         <!-- HTMX -->
-        <script src="{% static 'core/js/htmx.min.js' %}"></script>
+        <script src="{% static '/core/js/htmx.min.js' %}"></script>
 
         <style>
             .material-symbols-rounded {
@@ -81,7 +81,7 @@
                </ul>
                <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
                   <li>
-                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     <a href="{% url 'index' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <span class="material-symbols-outlined">
                            forum
                         </span>
@@ -89,7 +89,7 @@
                      </a>
                   </li>
                   <li>
-                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     <a href="{% url 'schedule' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <span class="material-symbols-outlined">
                            upcoming
                         </span>
@@ -107,27 +107,9 @@
                </ul>
             </div>
          </aside>
+         {% block content %}
 
-         <div class="h-full flex-shrink p-4 sm:ml-64 flex-col justify-end overflow-y-auto">
-            <!-- Message Area -->
-            <div class="message-area mb-4 ">
-               <div class="flex flex-col justify-end gap-2.5" >
-                  {% block messages %}{% endblock %}
-               </div>
-            </div>
-         </div>
-
-         <div class="flex-1 p-4 sm:ml-64 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-            <!-- Chat Box -->
-            <div class="inline-flex w-full gap-4">
-               <input type="search" id="search-dropdown" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search" required />
-               <button type="button" class="px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                  <span class="material-symbols-outlined">
-                     send
-                  </span>
-               </button>
-            </div>
-         </div>
+         {% endblock %}
       </div>
    </body>
    
