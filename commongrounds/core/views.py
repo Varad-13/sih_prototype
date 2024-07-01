@@ -40,7 +40,6 @@ def user_creation(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         bio = request.POST.get('bio')
-        user_type = request.POST.get('user_type')
         profile_image_file = request.FILES.get('profile_image')
 
         # Save the image
@@ -53,7 +52,6 @@ def user_creation(request):
             user=request.user,
             profile_image=image,
             bio=bio,
-            user_type=user_type
         )
         user_profile.save()
 

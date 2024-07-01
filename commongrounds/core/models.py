@@ -10,7 +10,7 @@ class Userprofile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_image = models.ForeignKey(Image, on_delete=models.CASCADE)
     bio = models.TextField()
-    user_type = models.TextField()
+    user_type = models.TextField(blank=True, null=True)
 
 class Timings(models.Model):
     daysofweek = models.IntegerField(default=1111111)
