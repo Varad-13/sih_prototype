@@ -8,10 +8,15 @@ def index(request):
     if request.user.is_authenticated:
         try:
             user_profile = Userprofile.objects.get(user=request.user)
+            context = {
+                'userprofile': user_profile
+            }
         except:
             print("User Profile not found")
             return redirect("/add_user")
-    return render(request, 'core/index.html')
+    else:
+        context = {}
+    return render(request, 'core/index.html', context)
 
 def explore(request):
     # Will add later
