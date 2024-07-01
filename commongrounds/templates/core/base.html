@@ -55,7 +55,7 @@
                      </a>
                   </li>
                   <li>
-                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     <a href="{% url 'index' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <span class="material-symbols-outlined">
                            explore
                         </span>
@@ -99,14 +99,14 @@
                   <li>
                      {% if request.user.is_authenticated %}
                          {% if userprofile %}
-                             <a href="{% url 'account_login' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                             <a href="{% url 'account_logout' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                  <div class="flex items-center space-x-3">
                                     <img src="{{ userprofile.profile_image.file.url }}" class="h-6 w-6 rounded-full object-cover border-2 border-gray-700 dark:border-white" alt="{{ userprofile.name }}'s Profile Image">
                                     <span class="flex-1 text-sm sm:text-base whitespace-nowrap">Sign Out</span>
                                  </div>
                              </a>
                          {% else %}
-                             <a href="{% url 'account_login' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                             <a href="{% url 'account_logout' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                  <span class="material-symbols-outlined text-lg sm:text-xl">
                                      person_add
                                  </span>
