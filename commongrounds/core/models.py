@@ -31,7 +31,7 @@ class Address(models.Model):
     address_line_2 = models.TextField()
     street_name = models.TextField()
     Locality = models.ForeignKey(Locality, on_delete=models.CASCADE)
-    google_link = models.URLField(null=True, blank=True)
+    google_embed_link = models.URLField()
 
 class ServiceTypes(models.Model):
     service_name = models.TextField()

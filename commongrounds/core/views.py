@@ -20,7 +20,7 @@ def index(request):
 
 def explore(request):
     # Will add later
-    return render(reqeust, 'core/index.html')
+    return render(request, 'core/index.html')
 
 @login_required
 def schedule(request):
