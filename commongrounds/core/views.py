@@ -33,9 +33,12 @@ def schedule(request):
     
     consumer_schedules = Schedule.objects.filter(consumer=user_profile)    
     
-    all_schedules = list(venue_schedules) + list(service_schedules) + list(consumer_schedules)
     context = {
-        'schedules': all_schedules,
+        'schedules': {
+            'venue_schedules': venue_schedules,
+            'service_schedules': service_schedules,
+            'consumer_schedules': consumer_schedules,
+        },
         'userprofile': user_profile
     }
     return render(request, 'core/schedule.html', context)
