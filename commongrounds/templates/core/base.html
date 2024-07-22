@@ -43,9 +43,9 @@
                </span>
             </button>
             
-            <div class="text-gray-900 font-medium dark:text-white text-xl">
+            <a class="text-gray-900 font-medium dark:text-white text-xl" href="{% url 'index' %}">
                <h2>CommonGrounds</h2>
-            </div>
+            </a>
 
             <div>
                <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar" type="button" class="btn btn-ghost justify-self-start">
@@ -60,28 +60,58 @@
          <aside id="separator-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
             <div class="h-full p-3 overflow-y-auto bg-gray-50 border-r-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 flex flex-col justify-between">
                <ul class="space-y-2 font-medium">
-
-                     <a href="{% url 'index' %}" class="text-black hidden dark:text-white sm:block">
-                        <span class="ms-3">CommonGrounds</span>
+                  <a href="{% url 'index' %}" class="text-black pb-6 hidden dark:text-white sm:block">
+                     <span>CommonGrounds</span>
+                  </a>
+               
+                  <ul class="space-y-2 font-medium pb-2">
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="material-symbols-outlined">
+                              location_city
+                           </span>
+                           <span class="flex-1 ms-3 whitespace-nowrap">Venues</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="{% url 'people' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="material-symbols-outlined">
+                              groups
+                           </span>
+                           <span class="flex-1 ms-3 whitespace-nowrap">People</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="material-symbols-outlined">
+                              chat
+                           </span>
+                           <span class="flex-1 ms-3 whitespace-nowrap">Chats</span>
+                        </a>
+                     </li>
+                  </ul>
+                  
+                  <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 pt-4 hidden sm:block">
+                     <span class="text-gray-500 hidden ms-3 text-md dark:text-gray-300 sm:block">Chats</span>
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+                        </a>
+                     </li>
+                     <a href="#" class="inline-flex w-full items-center justify-center px-4 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                        <span>More Chats</span>
                      </a>
-
-                 
-                  <li>
-                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <span class="material-symbols-outlined">
-                           location_city
-                        </span>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Venues</span>
-                     </a>
-                  </li>
-                  <li>
-                     <a href="{% url 'people' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <span class="material-symbols-outlined">
-                           groups
-                        </span>
-                        <span class="flex-1 ms-3 whitespace-nowrap">People</span>
-                     </a>
-                  </li>
+                  </ul>
                </ul>
                <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
                   <li>
