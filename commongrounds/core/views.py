@@ -22,6 +22,22 @@ def explore(request):
     # Will add later
     return render(request, 'core/index.html')
 
+def people(request):
+    user_profile = get_object_or_404(Userprofile, user=request.user)
+    services = Service.objects.select_related('provider').all()
+
+    users_with_services = {}
+    for service in services:
+        if service.provider not in users_with_services:
+            users_with_services[service.provider] = []
+        users_with_services[service.provider].append(service)
+
+    context = {
+        'users_with_services': users_with_services,
+        'userprofile': user_profile,
+    }
+    return render(request, 'core/people.html', context)
+
 @login_required
 def schedule(request):
     user_profile = get_object_or_404(Userprofile, user=request.user)
