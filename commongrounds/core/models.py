@@ -10,21 +10,19 @@ class Userprofile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_image = models.ForeignKey(Image, on_delete=models.CASCADE)
     bio = models.TextField()
-    user_type = models.TextField(blank=True, null=True)
+    isConsultant = models.BooleanField(default=False)
+    isVenueManager = models.BooleanField(default=False)
 
 class Timings(models.Model):
     daysofweek = models.IntegerField(default=1111111)
-    starthour = models.TextField()
-    endhour = models.TextField()
-
-class State(models.Model):
-    state_name = models.TextField()
-    state_code = models.TextField()
+    starthour = models.TimeField()
+    endhour = models.TimeField()
 
 class Locality(models.Model):
-    postcode = models.IntegerField()
+    postcode = models.IntegerField(unique=True, primary_key=True)
     place_name = models.TextField()
-    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    state_name = models.TextField()
+    state_code = models.TextField()
 
 class Address(models.Model):
     address_line_1 = models.TextField()
@@ -38,7 +36,7 @@ class ServiceTypes(models.Model):
     service_category = models.TextField()
 
 class Service(models.Model):
-    service_type = models.ForeignKey(ServiceTypes, on_delete=models.CASCADE)
+    service_type = models.ForeignKey(ServiceTypes, on_delete=models.CASCADE, related_name='services')
     provider = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
     description = models.TextField()
     timings = models.ForeignKey(Timings, on_delete=models.CASCADE)
@@ -48,14 +46,14 @@ class Service(models.Model):
 class Venue(models.Model):
     venue_name = models.TextField()
     venue_images = models.ManyToManyField(Image)
-    venue_manager = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
+    venue_manager = models.ForeignKey(Userprofile, on_delete=models.CASCADE, related_name='venues')
     timings = models.ForeignKey(Timings, on_delete=models.CASCADE)
     description = models.TextField()
     rate = models.FloatField()
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
 
 class Schedule(models.Model):
-    consumer = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
-    timing = models.ForeignKey(Timings, on_delete=models.CASCADE)
+    consumer = models.ForeignKey(Userprofile, on_delete=models.CASCADE, related_name='events')
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='events')
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE, related_name='events')
+    day = models.DateTimeField()
