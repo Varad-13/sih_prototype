@@ -42,11 +42,9 @@
                   menu
                </span>
             </button>
-            
             <a class="text-gray-900 font-medium dark:text-white text-xl" href="{% url 'index' %}">
                <h2>CommonGrounds</h2>
             </a>
-
             <div>
                <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar" type="button" class="btn btn-ghost justify-self-start">
                   <span class="material-symbols-outlined text-gray-900 dark:text-white text-xl">
@@ -56,11 +54,10 @@
             </div>
          </div>
          
-         
-         <aside id="separator-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-            <div class="h-full p-3 overflow-y-auto bg-gray-50 border-r-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 flex flex-col justify-between">
+         <aside id="separator-sidebar" class="fixed flex flex-col h-full top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-gray-50 border-r-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 justify-between" aria-label="Sidebar">
+            <div class="flex w-full p-3 flex flex-col">
                <ul class="space-y-2 font-medium">
-                  <a href="{% url 'index' %}" class="text-black pb-6 hidden dark:text-white sm:block">
+                  <a href="{% url 'index' %}" class="text-black pb-6 dark:text-white">
                      <span>CommonGrounds</span>
                   </a>
                
@@ -81,84 +78,122 @@
                            <span class="flex-1 ms-3 whitespace-nowrap">People</span>
                         </a>
                      </li>
-                     <li>
-                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                           <span class="material-symbols-outlined">
-                              chat
-                           </span>
-                           <span class="flex-1 ms-3 whitespace-nowrap">Chats</span>
-                        </a>
-                     </li>
                   </ul>
                   
-                  <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 pt-4 hidden sm:block">
-                     <span class="text-gray-500 hidden ms-3 text-md dark:text-gray-300 sm:block">Chats</span>
-                     <li>
-                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                           <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                           <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                           <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
-                        </a>
-                     </li>
-                     <a href="#" class="inline-flex w-full items-center justify-center px-4 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                        <span>More Chats</span>
-                     </a>
-                  </ul>
                </ul>
-               <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
-                  <li>
-                     <a href="{% url 'index' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <span class="material-symbols-outlined">
-                           forum
-                        </span>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
-                     </a>
-                  </li>
-                  <li>
-                     <a href="{% url 'schedule' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <span class="material-symbols-outlined">
-                           upcoming
-                        </span>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Schedule</span>
-                     </a>
-                  </li>
-                  <li>
-                     {% if request.user.is_authenticated %}
-                         {% if userprofile %}
-                             <a href="{% url 'account_login' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                 <div class="flex items-center space-x-3">
-                                    <img src="{{ userprofile.profile_image.file.url }}" class="h-6 w-6 rounded-full object-cover border-2 border-gray-700 dark:border-white" alt="{{ userprofile.name }}'s Profile Image">
-                                    <span class="flex-1 text-sm sm:text-base whitespace-nowrap">Sign Out</span>
-                                 </div>
-                             </a>
-                         {% else %}
-                             <a href="{% url 'account_login' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                 <span class="material-symbols-outlined text-lg sm:text-xl">
-                                     person_add
-                                 </span>
-                                 <span class="flex-1 ms-3 text-sm sm:text-base whitespace-nowrap">Sign Out</span>
-                             </a>
-                         {% endif %}
-                     {% else %}
-                         <a href="{% url 'account_login' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                             <span class="material-symbols-outlined text-lg sm:text-xl">
-                                 person_add
-                             </span>
-                             <span class="flex-1 ms-3 text-sm sm:text-base whitespace-nowrap">Sign Up</span>
-                         </a>
-                     {% endif %}
-                 </li>
-                                            
-               </ul>
+            </div> 
+            <div class="flex flex-row text-gray-500 text-md dark:text-gray-300 border-t border-gray-200 dark:border-gray-700 py-4">
+               <p class="ms-3">Chats</p>
+            </div>    
+            <div class="flex flex-col gap-2 overflow-y-auto font-medium">
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
+
+               <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+               </a>
             </div>
+            <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 m-3 pt-4 mt-4">
+               <li>
+                  <a href="{% url 'index' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     <span class="material-symbols-outlined">
+                        forum
+                     </span>
+                     <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
+                  </a>
+               </li>
+               <li>
+                  <a href="{% url 'schedule' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     <span class="material-symbols-outlined">
+                        upcoming
+                     </span>
+                     <span class="flex-1 ms-3 whitespace-nowrap">Schedule</span>
+                  </a>
+               </li>
+               <li>
+                  {% if request.user.is_authenticated %}
+                     {% if userprofile %}
+                        <a href="{% url 'account_logout' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                              <div class="flex items-center space-x-3">
+                                 <img src="{{ userprofile.profile_image.file.url }}" class="h-6 w-6 rounded-full object-cover border-2 border-gray-700 dark:border-white" alt="{{ userprofile.name }}'s Profile Image">
+                                 <span class="flex-1 text-sm sm:text-base whitespace-nowrap">Sign Out</span>
+                              </div>
+                        </a>
+                     {% else %}
+                        <a href="{% url 'account_logout' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                              <span class="material-symbols-outlined text-lg sm:text-xl">
+                                 person_add
+                              </span>
+                              <span class="flex-1 ms-3 text-sm sm:text-base whitespace-nowrap">Sign Out</span>
+                        </a>
+                     {% endif %}
+                  {% else %}
+                     <a href="{% url 'account_login' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="material-symbols-outlined text-lg sm:text-xl">
+                              person_add
+                        </span>
+                        <span class="flex-1 ms-3 text-sm sm:text-base whitespace-nowrap">Sign Up</span>
+                     </a>
+                  {% endif %}
+            </li>
+            </ul>  
          </aside>
          {% block content %}
 

@@ -1,56 +1,185 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat | CommonGrounds</title>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Service Providers | CommonGrounds</title>
+        
+        <!-- Tailwind CSS and Flowbite -->
+        <link href="/static/core/css/tailwind.min.css" rel="stylesheet">
+        <link href="/static/core/css/flowbite.min.css" rel="stylesheet" />
+        <script src="/static/core/js/flowbite.min.js"></script>
+
+        <!-- Material Icons -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+        <!-- HTMX -->
+        <script src="/static/core/js/htmx.min.js"></script>
+
+        <style>
+            .material-symbols-rounded {
+              font-variation-settings:
+              'FILL' 0,
+              'wght' 300,
+              'GRAD' 200,
+              'opsz' 24
+            }
+        </style>
+
+        <script>
+            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark')
+            }   
+        </script>
+    </head>
+
+    <body class="bg-gray-100 dark:bg-gray-900">
+      <div class="h-screen flex flex-col">
+         <div class="flex flex-row items-center m-4 justify-between sm:hidden">
+            <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar" type="button" class="btn btn-ghost justify-self-start">
+               <span class="material-symbols-outlined text-gray-900 dark:text-white text-xl">
+                  menu
+               </span>
+            </button>
+            
+            <a class="text-gray-900 font-medium dark:text-white text-xl" href="/">
+               <h2>CommonGrounds</h2>
+            </a>
+
+            <div>
+               <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar" type="button" class="btn btn-ghost justify-self-start">
+                  <span class="material-symbols-outlined text-gray-900 dark:text-white text-xl">
+                     edit_note
+                  </span>
+               </button>
+            </div>
+         </div>
+         
+         
+         <aside id="separator-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+            <div class="h-full p-3 overflow-y-auto bg-gray-50 border-r-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 flex flex-col justify-between">
+               <ul class="space-y-2 font-medium">
+                  <a href="/" class="text-black text-xl pb-6 hidden dark:text-white sm:block">
+                     <span>CommonGrounds</span>
+                  </a>
+               
+                  <ul class="space-y-2 font-medium pb-2">
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="material-symbols-outlined">
+                              location_city
+                           </span>
+                           <span class="flex-1 ms-3 whitespace-nowrap">Venues</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="/people/" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="material-symbols-outlined">
+                              groups
+                           </span>
+                           <span class="flex-1 ms-3 whitespace-nowrap">People</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="material-symbols-outlined">
+                              chat
+                           </span>
+                           <span class="flex-1 ms-3 whitespace-nowrap">Chats</span>
+                        </a>
+                     </li>
+                  </ul>
+                  
+                  <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 pt-4 hidden sm:block">
+                     <span class="text-gray-500 hidden ms-3 text-md dark:text-gray-300 sm:block">Chats</span>
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="flex-1 ms-3 whitespace-wrap">Looking for a resume consultant</span>
+                        </a>
+                     </li>
+                     <a href="#" class="inline-flex w-full items-center justify-center px-4 py-2 text-sm font-medium text-center text-white bg-gray-700 rounded-lg hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                        <span>More Chats</span>
+                     </a>
+                  </ul>
+               </ul>
+               <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+                  <li>
+                     <a href="/" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="material-symbols-outlined">
+                           forum
+                        </span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
+                     </a>
+                  </li>
+                  <li>
+                     <a href="/schedule/" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <span class="material-symbols-outlined">
+                           upcoming
+                        </span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Schedule</span>
+                     </a>
+                  </li>
+                  <li>
+                     
+                         
+                             <a href="/accounts/login/" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                 <div class="flex items-center space-x-3">
+                                    <img src="/media/images/88078870_CztK69I.jpeg" class="h-6 w-6 rounded-full object-cover border-2 border-gray-700 dark:border-white" alt="Varad Joshi's Profile Image">
+                                    <span class="flex-1 text-sm sm:text-base whitespace-nowrap">Sign Out</span>
+                                 </div>
+                             </a>
+                         
+                     
+                 </li>
+                                            
+               </ul>
+            </div>
+         </aside>
+         
+<div class="p-4 sm:ml-64 flex-col justify-end">
+    <h2 class="text-2xl font-bold mb-4 hidden text-center pb-6 dark:text-white sm:block">People on Commongrounds</h2>
+    <div class="flex flex-col flex-wrap md:flex-row items-center justify-center gap-6">    
     
-    <!-- Tailwind CSS and Flowbite -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-
-    <!-- Material Icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <!-- HTMX -->
-    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
-
-    <style>
-        .material-symbols-rounded {
-          font-variation-settings:
-          'FILL' 0,
-          'wght' 300,
-          'GRAD' 200,
-          'opsz' 24
-        }
-    </style>
-
-    <script>
-        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
-        }   
-    </script>
-</head>
-<body class="bg-neutral-100 dark:bg-neutral-900	">
-
-
-       <div class="h-full flex-shrink p-4 sm:ml-64 flex-col justify-end overflow-y-auto">
-          <!-- Message Area -->
-          
-       </div>
-
-       <div class="flex-1 p-4 sm:ml-64 border-t border-neutral-200 dark:border-neutral-700 pt-4 mt-4">
-          <!-- Chat Box -->
-          <div class="inline-flex w-full gap-4">
-             <input type="search" id="search-dropdown" class="block p-2.5 w-full text-sm text-neutral-900 bg-neutral-100 rounded border border-neutral-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-neutral-700 dark:border-neutral-600 dark:placeholder-neutral-400 dark:text-white dark:focus:border-blue-500" placeholder="Search" required />
-             <button type="button" class="px-5 text-sm font-medium text-neutral-900 focus:outline-none bg-white rounded-lg border border-neutral-200 hover:bg-neutral-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-neutral-100 dark:focus:ring-neutral-700 dark:bg-neutral-800 dark:text-neutral-400 dark:border-neutral-600 dark:hover:text-white dark:hover:bg-neutral-700">
-                <span class="material-symbols-outlined">
-                   send
-                </span>
-             </button>
-          </div>
-       </div>
+        <div class="w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex flex-col items-center mt-12 mb-4">
+                <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/media/images/88078870_CztK69I.jpeg" alt="Varad Joshi image"/>
+                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Varad Joshi</h5>
+                <!-- <span class="text-sm text-gray-500 dark:text-gray-400">None</span> -->
+            </div>
+            <div class="flex flex-col gap-4 p-4">
+                
+                    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div class="p-4">
+                            <h5 class="text-lg font-semibold text-gray-900 dark:text-white">I will consult you to improve your resume for specific jobs</h5>
+                            <div class="flex flex-row mt-4 md:mt-6 justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Rate: $203.0/hr</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Locality: 6942</p>        
+                                </div>
+                                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send Message</a>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+    
     </div>
- </body>
- 
+</div>
+
+      </div>
+   </body>
+   
+</html>
