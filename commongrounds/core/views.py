@@ -23,7 +23,6 @@ def explore(request):
     return render(request, 'core/index.html')
 
 def people(request):
-    user_profile = get_object_or_404(Userprofile, user=request.user)
     services = Service.objects.select_related('provider').all()
 
     users_with_services = {}
@@ -32,9 +31,18 @@ def people(request):
             users_with_services[service.provider] = []
         users_with_services[service.provider].append(service)
 
+    if request.user.is_authenticated:
+        try:
+            user_profile = Userprofile.objects.get(user=request.user)
+            context = {
+                'userprofile': user_profile
+            }
+        except:
+            print("User Profile not found")
+            return redirect("/add_user")
+
     context = {
         'users_with_services': users_with_services,
-        'userprofile': user_profile,
     }
     return render(request, 'core/people.html', context)
 

@@ -1,8 +1,8 @@
 {% extends 'core/base.html' %}
 {% block title %}Service Providers{% endblock %}
+{% block page_title %}People on Commongrounds{% endblock %}
 {% block content %}
 <div class="p-4 sm:ml-64 flex-col justify-end">
-    <h2 class="text-2xl font-bold mb-4 hidden text-center pb-6 dark:text-white sm:block">People on Commongrounds</h2>
     <div class="flex flex-col flex-wrap md:flex-row items-center justify-center gap-6">    
     {% for user, services in users_with_services.items %}
         <div class="w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

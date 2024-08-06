@@ -1,8 +1,8 @@
 {% extends 'core/base.html' %}
 {% block title %}Schedule - {{ userprofile.name }}{% endblock %}
+{% block page_title %}{{ userprofile.name }}'s Events{% endblock %}
 {% block content %}
 <div class="p-4 sm:ml-64 flex-col justify-end">
-    <h2 class="text-2xl font-bold mb-4 hidden text-center pb-6 dark:text-white sm:block">{{ userprofile.name }}'s Events</h2>
     {% if schedules %}
         <div class="flex flex-col flex-wrap md:flex-row items-center justify-center gap-6">    
         {% for schedule in schedules.venue_schedules %}     
