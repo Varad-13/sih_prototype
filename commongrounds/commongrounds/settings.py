@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # commongrounds apps
     'api',
     'core',
+    'chat',
 ]
 
 MIDDLEWARE = [
