@@ -36,7 +36,18 @@ def chat_view(request, chat_id):
                 print("This is the first message by this user in this chat")
                 # find relevant context
                 system_message = Message.objects.create(sender="system", content="context:context", chat=chat)
-            
+            print(len(content))
+            if len(content) > 500:
+                print("triggered")
+                agent_message_html = render_to_string(
+                    'chat/partials/error.html',
+                    {
+                        'error_message': "Message exceeds character limit",
+                        'note':'Maximum prompt length is 500 characters'
+                    }
+                ) 
+                return HttpResponse(agent_message_html)
+
             user_message = Message.objects.create(sender="user", content=content, chat=chat)
             user_message_html = render_to_string('chat/partials/message.html', {'message': user_message})
             agent_message = Message.objects.create(
