@@ -12,4 +12,4 @@ class Message(models.Model):
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     class Meta:
-        ordering = ['-timestamp']
+        ordering = ['timestamp']
