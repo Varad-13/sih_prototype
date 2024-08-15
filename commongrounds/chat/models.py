@@ -13,3 +13,5 @@ class Message(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     class Meta:
         ordering = ['timestamp']
+    def is_first_message_by_user(chat, sender):
+        return not Message.objects.filter(chat=chat, sender=sender).exists()

@@ -32,6 +32,10 @@ def chat_view(request, chat_id):
             agent_message_html = render_to_string('chat/partials/error.html', {'error_message': "Please wait till previous request is processed", 'note':'Please refresh the page if it is taking too long'})
             return HttpResponse(agent_message_html)
         if content and content.strip():
+            if Message.is_first_message_by_user(chat=chat, sender="user"):
+                print("This is the first message by this user in this chat")
+                # find relevant context
+                
             user_message = Message.objects.create(sender="user", content=content, chat=chat)
             user_message_html = render_to_string('chat/partials/message.html', {'message': user_message})
             agent_message = Message.objects.create(
@@ -65,7 +69,7 @@ def get_response(request, chat_id):
 
 def llm_response(messageid):
     # Wait for 5 seconds
-    time.sleep(5)
+    
     agent_message = Message.objects.get(id=messageid)
     agent_message.content = "This is a sample message that may be returned by the chatbot. The chatbot utilizes an advanced RAG based system for searching through and finding interesting people as per your liking!"
     agent_message.save()
@@ -83,6 +87,11 @@ def create_chat(request, title):
     chat = Chat.objects.create(
         title = title,
         user = user_profile
+    )
+    Message.objects.create(
+        sender="system", 
+        content="prompt",
+        chat=chat
     )
     Message.objects.create(
         sender="agent", 
