@@ -6,7 +6,7 @@
 {% block content %}
 <div id="message-box" class="h-full px-4 sm:ml-64 flex-col justify-end overflow-y-auto">
     <!-- Message Area -->
-    <div id="message-area" class="message-area mb-4 w-full">
+    <div id="message-area" class="message-area my-4 w-full">
       <div  id="inner-message" class="flex flex-col gap-2.5 max-w-5xl mx-auto">
           {% for message in chat.messages.all %}
               {% include 'chat/partials/message.html' %}
@@ -17,7 +17,7 @@
 
  <div class="flex flex-1 p-4 sm:ml-64 border-t border-gray-300 dark:border-gray-700 ">
    <!-- Chat Box -->
-   <div class="flex inline-flex w-full max-w-5xl mx-auto">
+   <div class="flex inline-flex w-full max-w-6xl mx-auto">
       <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
       <input hx-post="{% url 'chat' chat.id %}" 
              hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' 

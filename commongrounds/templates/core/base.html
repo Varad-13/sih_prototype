@@ -14,23 +14,6 @@
         <!-- HTMX -->
         <script src="{% static '/core/js/htmx.min.js' %}"></script>
 
-        <style>
-         .material-symbols-outlined {
-            font-family: 'Material Symbols Outlined';
-            font-style: normal;
-            font-size: 24px;
-            line-height: 1;
-            letter-spacing: normal;
-            text-transform: none;
-            display: inline-block;
-            white-space: nowrap;
-            word-wrap: normal;
-            direction: ltr;
-            -webkit-font-feature-settings: 'liga';
-            -webkit-font-smoothing: antialiased;
-         }
-        </style>
-
         <script>
             // On page load or when changing themes, best to add inline in `head` to avoid FOUC
             if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -113,7 +96,7 @@
                      <div class="flex flex-col gap-2 overflow-y-auto font-medium">
                         {% for chat in userprofile.chats.all %}
                         <a href="{% url 'chat' chat.id %}" class="flex mx-3 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                           <span class="flex-1  whitespace-wrap">Looking for a resume consultant</span>
+                           <span class="flex-1  whitespace-wrap">{{chat.title}}</span>
                         </a>
                         {% endfor %}
                      </div>
@@ -143,7 +126,7 @@
                      {% if userprofile %}
                         <a href="{% url 'account_logout' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                               <div class="flex items-center space-x-3">
-                                 <img src="{{ userprofile.profile_image.file.url }}" class="h-6 w-6 rounded-full object-cover border-2 border-gray-700 dark:border-white" alt="{{ userprofile.name }}'s Profile Image">
+                                 <img src="{{ userprofile.profile_image.file.url }}" class="h-6 w-6 rounded-full border-2 object-cover" alt="{{ userprofile.name }}'s Profile Image">
                                  <span class="flex-1 text-sm sm:text-base whitespace-nowrap">Sign Out</span>
                               </div>
                         </a>

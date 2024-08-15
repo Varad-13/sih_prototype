@@ -19,6 +19,10 @@ def chat_view(request, chat_id):
             return redirect('/add_user')
 
     chat = get_object_or_404(Chat, id=chat_id)
+
+    if chat.user != user_profile:
+        return HttpResponse('Not Found', status=404)
+
     context["chat"] = chat
 
     if request.method == 'POST':
@@ -48,7 +52,10 @@ def chat_view(request, chat_id):
 
 @login_required
 def get_response(request, chat_id):
+    user_profile = Userprofile.objects.filter(user=request.user).first()
     chat = get_object_or_404(Chat, id=chat_id)
+    if chat.user != user_profile:
+        return HttpResponse('Not Found', status=404)
     response = chat.messages.last()
     if response.content == "✨ Thinking...":
         response_html = render_to_string('chat/partials/hot_response.html',  {'message': response})
@@ -62,3 +69,24 @@ def llm_response(messageid):
     agent_message = Message.objects.get(id=messageid)
     agent_message.content = "This is a sample message that may be returned by the chatbot. The chatbot utilizes an advanced RAG based system for searching through and finding interesting people as per your liking!"
     agent_message.save()
+
+@login_required
+def create_chat(request, title):
+    context = {}
+    if request.user.is_authenticated:
+        user_profile = Userprofile.objects.filter(user=request.user).first()
+        if user_profile:
+            context['userprofile'] = user_profile
+        else:
+            return redirect('/add_user')
+
+    chat = Chat.objects.create(
+        title = title,
+        user = user_profile
+    )
+    Message.objects.create(
+        sender="agent", 
+        content="✨ Welcome to commongrounds. What can I do for you!", 
+        chat=chat
+    )
+    return redirect(f'/chat/{chat.id}')
