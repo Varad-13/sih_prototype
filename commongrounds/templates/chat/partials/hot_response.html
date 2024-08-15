@@ -1,0 +1,22 @@
+<div id='response' class="flex flex-col gap-2 p-4 self-start mr-3">
+    <div class="flex flex-inline gap-1 dark:text-gray-400">
+        <span class="material-symbols-outlined dark:text-gray-400">
+            support_agent
+        </span>
+        <p class="underline">Agent</p>
+    </div>
+    <p class="text-md font-normal border-0 text-gray-900 dark:text-white typewriter">{{ message.content }} <span id="typewriter"></span> </p>
+    <div
+        hx-get="{% url 'get_response' message.chat.id %}" 
+        hx-trigger="every 5s" 
+        hx-target="#response"
+        hx-swap="outerHTML"
+    ></div>
+    <script> 
+        new Typewriter('#typewriter', {
+            strings: ["This won't take long...","Did you know there were craters on the moon!"],
+            autoStart: true,   
+            loop: true,
+        });
+    </script>
+</div>

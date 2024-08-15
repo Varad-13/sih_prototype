@@ -112,7 +112,7 @@
                      </div>    
                      <div class="flex flex-col gap-2 overflow-y-auto font-medium">
                         {% for chat in userprofile.chats.all %}
-                        <a href="{% url 'chat_view' chat.id %}" class="flex mx-3 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <a href="{% url 'chat' chat.id %}" class="flex mx-3 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                            <span class="flex-1  whitespace-wrap">Looking for a resume consultant</span>
                         </a>
                         {% endfor %}

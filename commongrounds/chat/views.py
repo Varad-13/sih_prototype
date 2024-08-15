@@ -17,19 +17,43 @@ def chat_view(request, chat_id):
             context['userprofile'] = user_profile
         else:
             return redirect('/add_user')
+
     chat = get_object_or_404(Chat, id=chat_id)
     context["chat"] = chat
+
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        response = chat.messages.last()
+        if response.content == "✨ Thinking...":
+            agent_message_html = render_to_string('chat/partials/error.html', {'error_message': "Please wait till previous request is processed", 'note':'Please refresh the page if it is taking too long'})
+            return HttpResponse(agent_message_html)
+        if content and content.strip():
+            user_message = Message.objects.create(sender="user", content=content, chat=chat)
+            user_message_html = render_to_string('chat/partials/message.html', {'message': user_message})
+            agent_message = Message.objects.create(
+                sender="agent", 
+                content="✨ Thinking...", 
+                chat=chat
+            )
+            agent_message_html = render_to_string('chat/partials/hot_response.html', {'message': agent_message})
+            messages = user_message_html + agent_message_html
+            
+            thread = threading.Thread(target=llm_response, args=(agent_message.id,))
+            thread.start()
+            return HttpResponse(messages)
+
+        return HttpResponse('Invalid request', status=400)
+
     return render(request, 'chat/chat.html', context)
 
 @login_required
-def get_response(request, message):
-    message = get_object_or_404(Message, id=message)
-    chat = get_object_or_404(Chat, id=message.chat.id)
+def get_response(request, chat_id):
+    chat = get_object_or_404(Chat, id=chat_id)
     response = chat.messages.last()
     if response.content == "✨ Thinking...":
-        response_html = render_to_string('chat/partials/response.html',  {'message': response})
+        response_html = render_to_string('chat/partials/hot_response.html',  {'message': response})
     else:
-        response_html = render_to_string('chat/partials/message.html',  {'message': response})
+        response_html = render_to_string('chat/partials/response.html',  {'message': response})
     return HttpResponse(response_html)
 
 def llm_response(messageid):
@@ -38,33 +62,3 @@ def llm_response(messageid):
     agent_message = Message.objects.get(id=messageid)
     agent_message.content = "This is a sample message that may be returned by the chatbot. The chatbot utilizes an advanced RAG based system for searching through and finding interesting people as per your liking!"
     agent_message.save()
-
-@login_required
-def send_message(request, chat_id):
-    if request.method == 'POST':
-        content = request.POST.get('content')
-        chat = get_object_or_404(Chat, id=chat_id)
-        
-        if content and content.strip():
-            user_message = Message.objects.create(sender="user", content=content, chat=chat)
-
-            # Render the user's message
-            user_message_html = render_to_string('chat/partials/message.html', {'message': user_message})
-            agent_message = Message.objects.create(
-                sender="agent", 
-                content="✨ Thinking...", 
-                chat=chat
-            )
-            agent_message_html = render_to_string('chat/partials/response.html', {'message': agent_message})
-
-            # Combine the HTML for the response
-            messages = user_message_html + agent_message_html
-            
-            # Start a thread for handling the chatbot response
-            thread = threading.Thread(target=llm_response, args=(agent_message.id,))
-            thread.start()
-
-            # Respond with the combined HTML immediately
-            return HttpResponse(messages)
-
-    return HttpResponse('Invalid request', status=400)
