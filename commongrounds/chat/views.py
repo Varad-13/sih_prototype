@@ -35,7 +35,8 @@ def chat_view(request, chat_id):
             if Message.is_first_message_by_user(chat=chat, sender="user"):
                 print("This is the first message by this user in this chat")
                 # find relevant context
-                
+                system_message = Message.objects.create(sender="system", content="context:context", chat=chat)
+            
             user_message = Message.objects.create(sender="user", content=content, chat=chat)
             user_message_html = render_to_string('chat/partials/message.html', {'message': user_message})
             agent_message = Message.objects.create(
