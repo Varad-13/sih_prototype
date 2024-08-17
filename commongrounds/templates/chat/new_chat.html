@@ -1,10 +1,12 @@
+{% endblock %}
+
 {% extends 'core/base.html' %}
 {% load static %}
 
 {% block title %}Chat{% endblock %}
 {% block page_title %}{{ chat.title }}{% endblock %}
 {% block content %}
-<div id="message-box" class="h-full px-4 sm:ml-64 flex-col justify-end overflow-y-auto">
+<div id="message-box" class="h-full mx-1 px-3 sm:ml-64 flex-col justify-end overflow-y-auto">
     <!-- Message Area -->
     <div id="message-area" class="message-area my-4 w-full">
       <div  id="inner-message" class="flex flex-col gap-2.5 max-w-5xl mx-auto">
@@ -20,17 +22,17 @@
       </div>
     </div>
  </div>
- 
- <div class="flex flex-1 p-4 sm:ml-64">
+
+ <div class="flex p-2 justify-center sm:ml-64">
    <!-- Chat Box -->
-   <form class="flex flex-row w-full h-12 max-w-3xl mb-0 mx-auto"
+   <form class="flex flex-row w-full max-w-3xl mb-0"
       hx-post="{% url 'chat' chat.id %}" 
       hx-trigger="submit" 
       hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' 
       hx-target="#inner-message" 
       hx-swap="beforeend">   
       <input type="text" id="chat-input" name="content" 
-            class="block pl-4 w-full flex flex-wrap text-sm text-gray-900 bg-gray-50 h-auto rounded-s-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" 
+            class="block pl-4 w-full flex flex-wrap text-sm text-gray-900 bg-gray-50 rounded-s-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" 
             placeholder="Type a message...">
       
       <button type="submit" 
