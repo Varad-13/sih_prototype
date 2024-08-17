@@ -15,7 +15,7 @@
                 {% for service in services %}
                     <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <div class="p-4">
-                            <h5 class="text-lg font-semibold text-gray-900 dark:text-white">{{ service.description }}</h5>
+                            <h5 class="text-lg font-semibold text-gray-900 dark:text-white">{{ service.service_type.name }}</h5>
                             <div class="flex flex-row mt-4 md:mt-6 justify-between">
                                 <div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400">Rate: ${{ service.rate }}/hr</p>
