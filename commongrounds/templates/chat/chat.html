@@ -4,7 +4,7 @@
 {% block title %}Chat{% endblock %}
 {% block page_title %}{{ chat.title }}{% endblock %}
 {% block content %}
-<div id="message-box" class="h-full px-4 sm:ml-64 flex-col justify-end overflow-y-auto mb-10">
+<div id="message-box" class="h-full mx-1 px-3 sm:ml-64 flex-col justify-end overflow-y-auto">
     <!-- Message Area -->
     <div id="message-area" class="message-area my-4 w-full">
       <div  id="inner-message" class="flex flex-col gap-2.5 max-w-5xl mx-auto">
@@ -15,9 +15,9 @@
     </div>
  </div>
 
- <div class="flex flex-1 p-4 sm:ml-64 fixed bottom-0 w-full">
+ <div class="flex p-2 justify-center sm:ml-64">
    <!-- Chat Box -->
-   <form class="flex flex-row w-full h-12 max-w-3xl mb-0 mx-auto"
+   <form class="flex flex-row w-full h-12 max-w-3xl mb-0"
       hx-post="{% url 'chat' chat.id %}" 
       hx-trigger="submit" 
       hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' 

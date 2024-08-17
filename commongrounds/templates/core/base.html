@@ -28,10 +28,23 @@
                 document.documentElement.classList.remove('dark')
             }   
         </script>
+
+        <style>
+            /* width */
+            ::-webkit-scrollbar {
+               width: 5px; 
+            }
+            
+            /* Handle */
+            ::-webkit-scrollbar-thumb {
+               background: #888;
+               border-radius: 2px;
+            }
+        </style>
     </head>
 
     <body id="body" class="bg-gray-100 dark:bg-gray-900">
-      <div class="h-svh h-full flex flex-col">
+      <div class="h-dvh h-full flex flex-col">
          <div class="flex flex-row items-center m-4 justify-between sm:hidden">
             <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar" type="button" class="btn btn-ghost justify-self-start">
                <span class="material-symbols-outlined text-gray-900 dark:text-white text-xl">
@@ -62,9 +75,12 @@
 
          <aside id="separator-sidebar" class="fixed flex flex-col h-full top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0 bg-gray-50 border-r-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 justify-between" aria-label="Sidebar">
             <div class="flex w-full p-3 h-full flex flex-col overflow-y-auto">
-               <ul class="space-y-2 font-medium">
-                  <a href="{% url 'index' %}" class="text-black pb-6 dark:text-white">
-                     <span>CommonGrounds</span>
+               <ul class="flex flex-col gap-2 font-medium">
+                  <a href="{% url 'index' %}" class="flex flex-row items-center text-black w-full py-1 sm:py-3 sm:mb-3 dark:text-white">
+                     <span class="material-symbols-outlined">
+                        diversity_2
+                     </span>
+                     <span class="font-semibold ms-3 tracking-widest text-lg text-center">CommonGrounds</span>
                   </a>
                
                   <ul class="space-y-2 font-medium pb-2">
@@ -73,7 +89,7 @@
                            <span class="material-symbols-outlined">
                               location_city
                            </span>
-                           <span class="flex-1 ms-3 whitespace-nowrap">Venues</span>
+                           <span class="flex-1 ms-3 whitespace-nowrap">Venues <sup class="text-xs font-extralight">(WIP)</sup></span>
                         </a>
                      </li>
                      <li>
@@ -109,7 +125,7 @@
                      <span class="material-symbols-outlined">
                         forum
                      </span>
-                     <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
+                     <span class="flex-1 ms-3 whitespace-nowrap">Messages <sup class="text-xs font-extralight">(WIP)</sup></span>
                   </a>
                </li>
                <li>
@@ -117,7 +133,7 @@
                      <span class="material-symbols-outlined">
                         upcoming
                      </span>
-                     <span class="flex-1 ms-3 whitespace-nowrap">Schedule</span>
+                     <span class="flex-1 ms-3 whitespace-nowrap">Schedule <sup class="text-xs font-extralight">(WIP)</sup></span>
                   </a>
                </li>
                <li>

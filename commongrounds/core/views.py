@@ -4,14 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-    context = {}
-    if request.user.is_authenticated:
-        user_profile = Userprofile.objects.filter(user=request.user).first()
-        if user_profile:
-            context['userprofile'] = user_profile
-        else:
-            return redirect('/add_user')
-    return render(request, 'core/index.html', context)
+    return redirect('create_chat')
 
 def people(request):
     services = Service.objects.select_related('provider').all()
@@ -21,7 +14,7 @@ def people(request):
         if user_profile:
             context['userprofile'] = user_profile
         else:
-            return redirect('/add_user')
+            return redirect('onboarding')
         
     users_with_services = {}
     for service in services:
@@ -53,7 +46,7 @@ def schedule(request):
                 'consumer_schedules': consumer_schedules,
             }
         else:
-            return redirect('/add_user')
+            return redirect('onboarding')
 
     return render(request, 'core/schedule.html', context)
 

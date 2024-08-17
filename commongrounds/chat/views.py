@@ -16,7 +16,7 @@ def chat_view(request, chat_id):
         if user_profile:
             context['userprofile'] = user_profile
         else:
-            return redirect('/add_user')
+            return redirect('onboarding')
 
     chat = get_object_or_404(Chat, id=chat_id)
 
@@ -61,6 +61,17 @@ def chat_view(request, chat_id):
             return HttpResponse(messages)
 
         return HttpResponse('Invalid request', status=400)
+    
+    message = chat.messages.last()
+    if message and message.sender == "user":
+        agent_message = Message.objects.create(
+            sender="agent", 
+            content="Thinking...", 
+            chat=chat
+        )
+        thread = threading.Thread(target=llm_response, args=(agent_message.id,))
+        thread.start()
+        return render(request, 'chat/new_chat.html', context)
 
     return render(request, 'chat/chat.html', context)
 
@@ -93,7 +104,7 @@ def create_chat(request):
         if user_profile:
             context['userprofile'] = user_profile
         else:
-            return redirect('/add_user')
+            return redirect('onboarding')
     if request.method == 'POST':
         if request.POST.get('title'):
             title = request.POST.get('title')
