@@ -1,0 +1,53 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Chat{% endblock %}
+{% block page_title %}{{ chat.title }}{% endblock %}
+{% block content %}
+<div id="message-box" class="h-full mx-1 px-3 sm:ml-64 flex-col justify-end overflow-y-auto">
+    <!-- Message Area -->
+    <div id="message-area" class="message-area my-4 w-full">
+      <div  id="inner-message" class="flex flex-col gap-2.5 max-w-5xl mx-auto">
+            {% for message in chat.messages.all %}
+                {% include 'chat/partials/message.html' %}
+            {% endfor %}
+            <div class="flex flex-col gap-2 p-4 self-start max-w-2xl mr-3">
+                <div class="flex flex-inline gap-1 text-red-900 dark:text-red-300">
+                    <span class="material-symbols-outlined text-red-900 dark:text-red-300">
+                        manufacturing
+                    </span>
+                    <p class="underline">System</p>
+                </div>
+                <p class="text-md font-normal border-0 text-red-800 dark:text-red-400">This chat has ended! Please start a new chat</p>    
+            </div>
+        </div>
+    </div>
+ </div>
+
+ <div class="flex p-2 justify-center sm:ml-64">
+    <!-- Chat Box -->
+    <div class="flex flex-row w-full h-12 max-w-md mb-0">
+        <a href="{% url 'create_chat' %}"
+             class="block text-lg  w-full items-center justify-center flex  flex-wrap text-sm text-white bg-blue-600 h-auto rounded-full focus:ring-blue-500 focus:border-blue-500 dark:bg-blue-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500">
+             <p class="text-lg">New Chat</p>
+        </a>
+    </div>
+ </div>
+<script>
+   document.addEventListener('htmx:afterSwap', function(event) {
+      if (event.detail.pathInfo.path === "/chat/{{chat.id}}/") {
+        document.getElementById('chat-input').value = '';
+      }
+      const chat = document.getElementById('message-box');
+      chat.scrollTo({
+      top: chat.scrollHeight,
+      behavior: 'smooth'
+      });
+   });
+   window.onload = function() {
+      const chat = document.getElementById('message-box');
+      chat.scrollTop = chat.scrollHeight
+   };
+</script>
+
+{% endblock %}

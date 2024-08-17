@@ -1,12 +1,16 @@
 # views.py
 import threading
 import time
+import json
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Chat, Message
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-from core.models import Userprofile
+from core.models import Userprofile, Service
+from huggingface_hub import InferenceClient
+
+
 
 @login_required
 def chat_view(request, chat_id):
@@ -32,10 +36,6 @@ def chat_view(request, chat_id):
             agent_message_html = render_to_string('chat/partials/error.html', {'error_message': "Please wait till previous request is processed", 'note':'Please refresh the page if it is taking too long'})
             return HttpResponse(agent_message_html)
         if content and content.strip():
-            if Message.is_first_message_by_user(chat=chat, sender="user"):
-                print("This is the first message by this user in this chat")
-                # find relevant context
-                system_message = Message.objects.create(sender="system", content="context:context", chat=chat)
             if len(content) > 500:
                 agent_message_html = render_to_string(
                     'chat/partials/error.html',
@@ -43,7 +43,7 @@ def chat_view(request, chat_id):
                         'error_message': "Message exceeds character limit",
                         'note':'Maximum prompt length is 500 characters'
                     }
-                ) 
+                )
                 return HttpResponse(agent_message_html)
 
             user_message = Message.objects.create(sender="user", content=content, chat=chat)
@@ -64,15 +64,48 @@ def chat_view(request, chat_id):
     
     message = chat.messages.last()
     if message and message.sender == "user":
-        agent_message = Message.objects.create(
-            sender="agent", 
-            content="Thinking...", 
+        if "resume" in message.content:
+            providers = Service.objects.filter(service_type__service_name == "resume consultation")
+        elif "fitness" in message.content:
+            providers = Service.objects.filter(service_type__service_name == "fitness training")
+        else:
+            print("triggered")
+            agent_message = Message.objects.create(
+                sender="agent", 
+                content="Sorry no users found matching your request.",
+                chat=chat
+            )
+            Message.objects.create(
+                sender="system", 
+                content="This chat has ended.",
+                chat=chat
+            )
+            return render(request, 'chat/chat_ended.html', context)
+        context = []
+        for provider in providers:
+            person = {}
+            person["username"] = provider.provider.name
+            person["bio"] = provider.provider.bio
+            person["service_description"] = provider.description
+            person["rate_per_hour"] = provider.rate
+            context.appent(person)
+        context_str = json.dump(context, indent=4)
+        Message.object.create(
+            sender="system",
+            content=f"context:\n{context_str}",
             chat=chat
         )
-        thread = threading.Thread(target=llm_response, args=(agent_message.id,))
+        agent_message = Message.objects.create(
+            sender="agent", 
+            content="Thinking...",
+            chat=chat
+        )
+        messages = chat.messages.all()
+        thread = threading.Thread(target=llm_response, args=(agent_message.id,messages))
         thread.start()
         return render(request, 'chat/new_chat.html', context)
-
+    elif message and message.content == "This chat has ended." and message.sender == "system":
+        return render(request, 'chat/chat_ended.html', context)
     return render(request, 'chat/chat.html', context)
 
 @login_required
@@ -88,13 +121,29 @@ def get_response(request, chat_id):
         response_html = render_to_string('chat/partials/response.html',  {'message': response})
     return HttpResponse(response_html)
 
-def llm_response(messageid):
-    # Wait for 5 seconds
-    time.sleep(5)
-    
-    agent_message = Message.objects.get(id=messageid)
-    agent_message.content = "This is a sample message that may be returned by the chatbot. The chatbot utilizes an advanced RAG based system for searching through and finding interesting people as per your liking!"
-    agent_message.save()
+def llm_response(messageid, messages):
+    try:
+        client = InferenceClient(
+            "microsoft/Phi-3-mini-4k-instruct",
+            token="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",
+        )
+        message_history = []
+        for m in messages:
+            message = {}
+            message["role"] = m.role
+            message["content"] = m.content
+        response = client.chat_completion(
+                messages=messages,
+                max_tokens=500,
+                stream=False,
+            )
+        agent_message = Message.objects.get(id=messageid)
+        agent_message.content = response.choices[0].message.content
+        agent_message.save()
+    except:
+        agent_message = Message.objects.get(id=messageid)
+        agent_message.sender = "system"
+        agent_message.content = "Something went wrong while generating response"
 
 @login_required
 def create_chat(request):

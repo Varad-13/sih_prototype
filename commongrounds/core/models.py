@@ -37,7 +37,7 @@ class ServiceTypes(models.Model):
 
 class Service(models.Model):
     service_type = models.ForeignKey(ServiceTypes, on_delete=models.CASCADE, related_name='services')
-    provider = models.ForeignKey(Userprofile, on_delete=models.CASCADE)
+    provider = models.ForeignKey(Userprofile, on_delete=models.CASCADE, related_name='services')
     description = models.TextField()
     timings = models.ForeignKey(Timings, on_delete=models.CASCADE)
     rate = models.FloatField()
