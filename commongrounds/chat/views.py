@@ -36,9 +36,7 @@ def chat_view(request, chat_id):
                 print("This is the first message by this user in this chat")
                 # find relevant context
                 system_message = Message.objects.create(sender="system", content="context:context", chat=chat)
-            print(len(content))
             if len(content) > 500:
-                print("triggered")
                 agent_message_html = render_to_string(
                     'chat/partials/error.html',
                     {
@@ -52,7 +50,7 @@ def chat_view(request, chat_id):
             user_message_html = render_to_string('chat/partials/message.html', {'message': user_message})
             agent_message = Message.objects.create(
                 sender="agent", 
-                content="✨ Thinking...", 
+                content="Thinking...", 
                 chat=chat
             )
             agent_message_html = render_to_string('chat/partials/hot_response.html', {'message': agent_message})
@@ -81,13 +79,14 @@ def get_response(request, chat_id):
 
 def llm_response(messageid):
     # Wait for 5 seconds
+    time.sleep(5)
     
     agent_message = Message.objects.get(id=messageid)
     agent_message.content = "This is a sample message that may be returned by the chatbot. The chatbot utilizes an advanced RAG based system for searching through and finding interesting people as per your liking!"
     agent_message.save()
 
 @login_required
-def create_chat(request, title):
+def create_chat(request):
     context = {}
     if request.user.is_authenticated:
         user_profile = Userprofile.objects.filter(user=request.user).first()
@@ -95,19 +94,17 @@ def create_chat(request, title):
             context['userprofile'] = user_profile
         else:
             return redirect('/add_user')
-
-    chat = Chat.objects.create(
-        title = title,
-        user = user_profile
-    )
-    Message.objects.create(
-        sender="system", 
-        content="prompt",
-        chat=chat
-    )
-    Message.objects.create(
-        sender="agent", 
-        content="✨ Welcome to commongrounds. What can I do for you!", 
-        chat=chat
-    )
-    return redirect(f'/chat/{chat.id}')
+    if request.method == 'POST':
+        if request.POST.get('title'):
+            title = request.POST.get('title')
+            chat = Chat.objects.create(
+                title = request.POST.get('title'),
+                user = user_profile
+            )
+            Message.objects.create(
+                sender="system", 
+                content="You are an advanced conversational agent designed to help users find and connect with individuals on Commongrounds. Users will inquire about specific services offered or individuals, and your role is to identify the best matches from the provided context. Use the context to retrieve relevant information and present it to the user in a helpful manner. If the user's request cannot be fulfilled based on the available context, politely inform them without mentioning the limitations of the context. Always frame your responses as if you have found the information they need. Avoid discussing the retrieval process or the underlying data. Precisely respond to the users query without any rationale from your side. Do not break the conversational flow. Also refrain from giving user instructions unless specifically asked for. If user wants to schedule a meeting or appointment, tell them to directly message the people from this chat.",
+                chat=chat
+            )
+            return redirect(f'/chat/{chat.id}')
+    return render(request, 'core/index.html', context)

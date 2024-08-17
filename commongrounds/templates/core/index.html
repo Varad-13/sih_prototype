@@ -2,30 +2,54 @@
 {% load static %}
 
 {% block title %}Chat{% endblock %}
-{% block page_title %}Looking for a resume consultant{% endblock %}
+{% block page_title %}Start a chat{% endblock %}
 {% block content %}
-<div class="h-full flex-shrink p-4 sm:ml-64 flex-col justify-end overflow-y-auto">
-    <!-- Message Area -->
-    <div class="message-area mb-4 w-full">
-       <div class="flex flex-col max-w-[540px] justify-end gap-2.5 sm:w-5/6" >
-         <!--Loop over messaages here-->
-        <div class="flex flex-col p-4 border border-gray-200 bg-white rounded-e-xl rounded-es-xl dark:border-gray-600 dark:bg-gray-700">
-            <p class="text-md font-normal border-0 text-gray-900 dark:text-white">Welcome to CommonGround. The chatbot will be integrated and fully functional shortly</p>
-         </div>
-         <!--endloop-->
-       </div>
-    </div>
- </div>
-
- <div class="flex-1 p-4 sm:ml-64 border-t border-gray-300 dark:border-gray-700 pt-4 mt-4">
-    <!-- Chat Box -->
-    <div class="inline-flex w-full gap-4">
-       <input type="search" id="search-dropdown" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search" required />
-       <button type="button" class="px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          <span class="material-symbols-outlined">
-             send
+<div class="h-full self-center my-20 rounded-xl flex flex-col items-start justify-between sm:max-w-3xl sm:my-60 sm:ml-64 p-6">
+   <div class="flex flex-col gap-2 p-4 self-star w-full mb-6">
+      <div class="flex flex-inline gap-1 dark:text-gray-400">
+          <span class="material-symbols-outlined dark:text-gray-400">
+              support_agent
           </span>
-       </button>
-    </div>
- </div>
- {%endblock%}
+          <p class="underline">Agent</p>
+      </div>
+      
+      <div class="flex flex-inline gap-1">
+         <lottie-player src="https://fonts.gstatic.com/s/e/notoemoji/latest/2728/lottie.json" background="transparent"  speed="1"  style="width: 24px; height: 24px;" autoplay loop></lottie-player>
+         <p class="sm:text-lg font-normal border-0 text-gray-900 dark:text-white">Welcome to CommonGrounds!</p>
+      </div>
+      {% if request.user.is_authenticated %}
+         {% if userprofile %}
+         <div class="flex flex-inline gap-1">
+            <lottie-player src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44b/lottie.json" background="transparent" speed="1"  style="width: 24px; height: 24px;" autoplay loop></lottie-player>
+            <p class="sm:text-lg font-normal border-0 text-gray-900 dark:text-white">Hey {{userprofile.name}}! I'm Agent... </p>
+         </div>
+         <p class="text-md font-normal border-0 text-gray-900 dark:text-white">...your very own assistant to help you find meaningful connections and people!</p>
+         {% endif %}
+      {% endif %}
+  </div>
+  <div class="w-full">
+   <div class="w-auto my-2">
+      <p class="text-sm font-thin border-0 ml-4 text-gray-900 dark:text-white">Start typing to find <span id="typewriter" class="font-bold"></span> </p>
+   </div>
+         <form class="inline-flex mb-0 w-full h-10 px-2">
+            
+            <input class="block p-4 w-full text-sm text-gray-900 bg-gray-50 rounded-l-xl border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Start a new chat" required />
+            <button type="button" class="px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-e-xl border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+               <span class="material-symbols-outlined">
+                  send
+               </span>
+            </button>
+         </form>
+         
+   </div>
+   <div class=""></div>
+   </div>
+
+<script> 
+   new Typewriter('#typewriter', {
+       strings: ["Resume Consultants...","Fitness Trainers...","Players for Board Games..."],
+       autoStart: true,   
+       loop: true,
+   });
+</script>
+{%endblock%}
