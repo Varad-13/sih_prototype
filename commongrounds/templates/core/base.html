@@ -30,8 +30,8 @@
         </script>
     </head>
 
-    <body class="bg-gray-100 dark:bg-gray-900">
-      <div class="h-screen flex flex-col">
+    <body id="body" class="bg-gray-100 dark:bg-gray-900">
+      <div class="h-svh h-full flex flex-col">
          <div class="flex flex-row items-center m-4 justify-between sm:hidden">
             <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar" type="button" class="btn btn-ghost justify-self-start">
                <span class="material-symbols-outlined text-gray-900 dark:text-white text-xl">
@@ -60,52 +60,49 @@
             </a>
          </div>
 
-         <aside id="separator-sidebar" class="fixed flex flex-col h-full top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-gray-50 border-r-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 justify-between" aria-label="Sidebar">
-            <div>
-               <div class="flex w-full p-3 flex flex-col">
-                  <ul class="space-y-2 font-medium">
-                     <a href="{% url 'index' %}" class="text-black pb-6 dark:text-white">
-                        <span>CommonGrounds</span>
-                     </a>
-                  
-                     <ul class="space-y-2 font-medium pb-2">
-                        <li>
-                           <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                              <span class="material-symbols-outlined">
-                                 location_city
-                              </span>
-                              <span class="flex-1 ms-3 whitespace-nowrap">Venues</span>
-                           </a>
-                        </li>
-                        <li>
-                           <a href="{% url 'people' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                              <span class="material-symbols-outlined">
-                                 groups
-                              </span>
-                              <span class="flex-1 ms-3 whitespace-nowrap">People</span>
-                           </a>
-                        </li>
-                     </ul>
-                     
-                  </ul>
-               </div> 
-               <div>
-                  {% if request.user.is_authenticated %}
-                     {% if userprofile %}
-                     <div class="flex flex-row text-gray-500 text-md dark:text-gray-300 border-t border-gray-200 dark:border-gray-700 py-4">
-                        <p class="ms-3">Chats</p>
-                     </div>    
-                     <div class="flex flex-col gap-2 overflow-y-auto font-medium">
-                        {% for chat in userprofile.chats.all %}
-                        <a href="{% url 'chat' chat.id %}" class="flex mx-3 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                           <span class="flex-1  whitespace-wrap">{{chat.title}}</span>
+         <aside id="separator-sidebar" class="fixed flex flex-col h-full top-0 left-0 z-40 w-64 transition-transform -translate-x-full sm:translate-x-0 bg-gray-50 border-r-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800 justify-between" aria-label="Sidebar">
+            <div class="flex w-full p-3 h-full flex flex-col overflow-y-auto">
+               <ul class="space-y-2 font-medium">
+                  <a href="{% url 'index' %}" class="text-black pb-6 dark:text-white">
+                     <span>CommonGrounds</span>
+                  </a>
+               
+                  <ul class="space-y-2 font-medium pb-2">
+                     <li>
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="material-symbols-outlined">
+                              location_city
+                           </span>
+                           <span class="flex-1 ms-3 whitespace-nowrap">Venues</span>
                         </a>
-                        {% endfor %}
-                     </div>
-                     {% endif %}
-                  {% endif %}
+                     </li>
+                     <li>
+                        <a href="{% url 'people' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                           <span class="material-symbols-outlined">
+                              groups
+                           </span>
+                           <span class="flex-1 ms-3 whitespace-nowrap">People</span>
+                        </a>
+                     </li>
+                  </ul>
+                  
+               </ul>
+               {% if request.user.is_authenticated %}
+               {% if userprofile %}
+               <div class="flex flex-row text-gray-500 text-md dark:text-gray-300 border-t border-gray-200 dark:border-gray-700 py-4">
+                  <p class="ms-3">Chats</p>
+               </div>    
+               <div class="flex flex-col gap-2 h-full overflow-y-auto font-medium">
+                  {% for chat in userprofile.chats.all %}
+                  <a href="{% url 'chat' chat.id %}" class="flex mx-3 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     <span class="flex-1  whitespace-wrap">{{chat.title}}</span>
+                  </a>
+                  {% endfor %}
                </div>
-            </div>
+               {% endif %}
+            {% endif %}
+            </div> 
+               
             <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 m-3 pt-4 mt-4">
                <li>
                   <a href="{% url 'index' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">

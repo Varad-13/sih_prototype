@@ -28,7 +28,7 @@ def chat_view(request, chat_id):
     if request.method == 'POST':
         content = request.POST.get('content')
         response = chat.messages.last()
-        if response.content == "✨ Thinking...":
+        if response.content == "Thinking...":
             agent_message_html = render_to_string('chat/partials/error.html', {'error_message': "Please wait till previous request is processed", 'note':'Please refresh the page if it is taking too long'})
             return HttpResponse(agent_message_html)
         if content and content.strip():
@@ -103,8 +103,20 @@ def create_chat(request):
             )
             Message.objects.create(
                 sender="system", 
-                content="You are an advanced conversational agent designed to help users find and connect with individuals on Commongrounds. Users will inquire about specific services offered or individuals, and your role is to identify the best matches from the provided context. Use the context to retrieve relevant information and present it to the user in a helpful manner. If the user's request cannot be fulfilled based on the available context, politely inform them without mentioning the limitations of the context. Always frame your responses as if you have found the information they need. Avoid discussing the retrieval process or the underlying data. Precisely respond to the users query without any rationale from your side. Do not break the conversational flow. Also refrain from giving user instructions unless specifically asked for. If user wants to schedule a meeting or appointment, tell them to directly message the people from this chat.",
+                content="prompt:You are an advanced conversational agent designed to help users find and connect with individuals on Commongrounds. Users will inquire about specific services offered or individuals, and your role is to identify the best matches from the provided context. Use the context to retrieve relevant information and present it to the user in a helpful manner. If the user's request cannot be fulfilled based on the available context, politely inform them without mentioning the limitations of the context. Always frame your responses as if you have found the information they need. Avoid discussing the retrieval process or the underlying data. Precisely respond to the users query without any rationale from your side. Do not break the conversational flow. Also refrain from giving user instructions unless specifically asked for. If user wants to schedule a meeting or appointment, tell them to directly message the people from this chat.",
                 chat=chat
             )
-            return redirect(f'/chat/{chat.id}')
+            Message.objects.create(
+                sender="agent",
+                content=f"Hey there! I'm Agent your very own assistant to help you find and meet amazing people. How can I help you today?",
+                chat=chat
+            )
+            Message.objects.create(
+                sender="user",
+                content=title,
+                chat=chat
+            )
+            response = HttpResponse()
+            response["HX-Redirect"] = f'/chat/{chat.id}'
+            return response
     return render(request, 'core/index.html', context)
