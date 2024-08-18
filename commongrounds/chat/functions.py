@@ -11,17 +11,17 @@ def parse_markdown(markdown_text):
     for tag in soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']):
         tag['class'] = tag.get('class', []) + ['font-bold', 'my-4']
         if tag.name == 'h1':
-            tag['class'] += ['text-3xl']
+            tag['class'] += ['text-3xl', 'text-gray-900', 'dark:text-white']
         elif tag.name == 'h2':
-            tag['class'] += ['text-2xl']
+            tag['class'] += ['text-2xl', 'text-gray-900', 'dark:text-white']
         elif tag.name == 'h3':
-            tag['class'] += ['text-xl']
+            tag['class'] += ['text-xl', 'text-gray-900', 'dark:text-white']
         elif tag.name == 'h4':
-            tag['class'] += ['text-lg']
+            tag['class'] += ['text-lg', 'text-gray-900', 'dark:text-white']
         elif tag.name == 'h5':
-            tag['class'] += ['text-base']
+            tag['class'] += ['text-base', 'text-gray-900', 'dark:text-white']
         elif tag.name == 'h6':
-            tag['class'] += ['text-sm']
+            tag['class'] += ['text-sm', 'text-gray-900', 'dark:text-white']
 
         # Add an ID to the header for anchor links
         if not tag.get('id'):
@@ -30,23 +30,23 @@ def parse_markdown(markdown_text):
             tag['id'] = header_id
 
     for tag in soup.find_all('p'):
-        tag['class'] = tag.get('class', []) + ['my-2']
+        tag['class'] = tag.get('class', []) + ['my-2', 'text-gray-900', 'dark:text-white']
 
     for tag in soup.find_all('ul'):
-        tag['class'] = tag.get('class', []) + ['list-disc', 'ml-5']
+        tag['class'] = tag.get('class', []) + ['list-disc', 'ml-5', 'text-gray-900', 'dark:text-white']
 
     for tag in soup.find_all('ol'):
-        tag['class'] = tag.get('class', []) + ['list-decimal', 'ml-5']
+        tag['class'] = tag.get('class', []) + ['list-decimal', 'ml-5', 'text-gray-900', 'dark:text-white']
 
     for tag in soup.find_all('code'):
-        tag['class'] = tag.get('class', []) + ['px-1']
+        tag['class'] = tag.get('class', []) + ['px-1', 'text-gray-900', 'dark:text-white']
 
     for tag in soup.find_all('pre'):
         # Create the mockup-code div
         mockup_code_div = soup.new_tag('div', **{'class': 'mockup-code'})
         
         # Add the DaisyUI classes to the pre tag
-        tag['class'] = tag.get('class', []) + ['rounded', 'p-4', 'my-4', 'overflow-auto']
+        tag['class'] = tag.get('class', []) + ['rounded', 'p-4', 'my-4', 'overflow-auto', 'text-gray-900', 'dark:text-white']
         
         code_tag = tag.find('code')
         if code_tag:
@@ -55,13 +55,13 @@ def parse_markdown(markdown_text):
         tag.wrap(mockup_code_div)
 
     for tag in soup.find_all('table'):
-        tag['class'] = tag.get('class', []) + ['table-auto', 'w-full', 'my-4', 'border-collapse']
+        tag['class'] = tag.get('class', []) + ['table-auto', 'w-full', 'my-4', 'border-collapse', 'text-gray-900', 'dark:text-white']
         for th in tag.find_all('th'):
-            th['class'] = th.get('class', []) + ['border', 'px-4', 'py-2']
+            th['class'] = th.get('class', []) + ['border', 'px-4', 'py-2', 'text-gray-900', 'dark:text-white']
         for td in tag.find_all('td'):
-            td['class'] = td.get('class', []) + ['border', 'px-4', 'py-2']
+            td['class'] = td.get('class', []) + ['border', 'px-4', 'py-2', 'text-gray-900', 'dark:text-white']
 
     for tag in soup.find_all('a'):
-        tag['class'] = tag.get('class', []) + ['hover:text-accent']
+        tag['class'] = tag.get('class', []) + ['hover:text-blue-500', 'text-gray-900', 'dark:text-white']
 
     return str(soup)
