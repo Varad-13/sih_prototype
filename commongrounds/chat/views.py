@@ -129,12 +129,12 @@ def llm_response(messageid, messages):
         message_history.append(message)
     try:
         client = InferenceClient(
-            "microsoft/Phi-3-mini-4k-instruct",
+            "microsoft/Phi-3-medium-4k-instruct",
             token="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",
         )
         response = client.chat_completion(
                 messages=message_history,
-                max_tokens=500,
+                max_tokens=4000,
                 stream=False,
             )
         agent_message = Message.objects.get(id=messageid)
