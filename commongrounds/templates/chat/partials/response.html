@@ -5,7 +5,7 @@
         </span>
         <p class="underline">Agent</p>
     </div>
-    <p class="text-md font-normal border-0 text-gray-900 dark:text-white">{{ message.content }}</p>
+    <p class="text-md font-normal border-0 text-gray-900 dark:text-white">{{ message.content | safe }}</p>
     <script>
         var errorMessages = document.querySelectorAll('.error-message');
         errorMessages.forEach(function(element) {
