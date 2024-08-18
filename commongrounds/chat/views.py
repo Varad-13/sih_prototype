@@ -47,7 +47,7 @@ def chat_view(request, chat_id):
             user_message = Message.objects.create(sender="user", content=content, chat=chat)
             user_message_html = render_to_string('chat/partials/message.html', {'message': user_message})
             agent_message = Message.objects.create(
-                sender="agent", 
+                sender="assistant", 
                 content="Thinking...", 
                 chat=chat
             )
@@ -68,7 +68,7 @@ def chat_view(request, chat_id):
             providers = Service.objects.filter(service_type__service_name = "Fitness Training")
         else:
             agent_message = Message.objects.create(
-                sender="agent", 
+                sender="assistant", 
                 content="Sorry no users found matching your request.",
                 chat=chat
             )
@@ -94,7 +94,7 @@ def chat_view(request, chat_id):
             chat=chat
         )
         agent_message = Message.objects.create(
-            sender="agent", 
+            sender="assistant", 
             content="Thinking...",
             chat=chat
         )
@@ -129,7 +129,7 @@ def llm_response(messageid, messages):
         message_history.append(message)
     try:
         client = InferenceClient(
-            "microsoft/Phi-3-medium-4k-instruct",
+            "microsoft/Phi-3-mini-4k-instruct",
             token="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",
         )
         response = client.chat_completion(
@@ -170,7 +170,7 @@ def create_chat(request):
                 chat=chat
             )
             Message.objects.create(
-                sender="agent",
+                sender="assistant",
                 content=f"Hey there! I'm Agent your very own assistant to help you find and meet amazing people. How can I help you today?",
                 chat=chat
             )
