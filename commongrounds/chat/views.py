@@ -63,9 +63,9 @@ def chat_view(request, chat_id):
     message = chat.messages.last()
     if message and message.sender == "user":
         if "resume" in message.content.lower():
-            providers = Service.objects.filter(service_type__service_name = "Resume Consultation".lower())
+            providers = Service.objects.filter(service_type__service_name = "Resume Consultation")
         elif "fitness" in message.content.lower():
-            providers = Service.objects.filter(service_type__service_name = "Fitness Training".lower())
+            providers = Service.objects.filter(service_type__service_name = "Fitness Training")
         else:
             agent_message = Message.objects.create(
                 sender="assistant", 
