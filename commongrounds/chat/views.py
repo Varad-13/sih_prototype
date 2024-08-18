@@ -83,6 +83,7 @@ def chat_view(request, chat_id):
             person = {}
             person["username"] = provider.provider.name
             person["bio"] = provider.provider.bio
+            person["service_provided"] = provider.service_type.service_name
             person["service_description"] = provider.description
             person["rate_per_hour"] = provider.rate
             llm_context.append(person)
