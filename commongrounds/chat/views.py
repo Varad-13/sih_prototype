@@ -1,7 +1,7 @@
 # views.py
 import threading
-import time
 import json
+from .functions import *
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Chat, Message
@@ -9,8 +9,6 @@ from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from core.models import Userprofile, Service
 from huggingface_hub import InferenceClient
-
-
 
 @login_required
 def chat_view(request, chat_id):
@@ -55,13 +53,7 @@ def chat_view(request, chat_id):
             )
             agent_message_html = render_to_string('chat/partials/hot_response.html', {'message': agent_message})
             messages = user_message_html + agent_message_html
-            chat_history = Message.objects.all()
-            message_history = []
-            for m in chat_history:
-                message = {}
-                message["role"] = m.sender
-                message["content"] = m.content
-                message_history.appent(message)
+            message_history = Message.objects.all()
             thread = threading.Thread(target=llm_response, args=(agent_message.id,message_history))
             thread.start()
             return HttpResponse(messages)
@@ -75,7 +67,6 @@ def chat_view(request, chat_id):
         elif "fitness" in message.content.lower():
             providers = Service.objects.filter(service_type__service_name = "Fitness Training")
         else:
-            print("triggered")
             agent_message = Message.objects.create(
                 sender="agent", 
                 content="Sorry no users found matching your request.",
@@ -107,12 +98,7 @@ def chat_view(request, chat_id):
             chat=chat
         )
         messages = chat.messages.all()
-        message_history = []
-        for m in messages:
-            message = {}
-            message["role"] = m.sender
-            message["content"] = m.content
-            message_history.append(message)
+        
         thread = threading.Thread(target=llm_response, args=(agent_message.id,message_history))
         thread.start()
         return render(request, 'chat/new_chat.html', context)
@@ -134,21 +120,26 @@ def get_response(request, chat_id):
     return HttpResponse(response_html)
 
 def llm_response(messageid, messages):
+    message_history = []
+    for m in messages:
+        message = {}
+        message["role"] = m.sender
+        message["content"] = m.content
+        message_history.append(message)
     try:
-        print("Started")
         client = InferenceClient(
             "microsoft/Phi-3-mini-4k-instruct",
             token="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",
         )
         response = client.chat_completion(
-                messages=messages,
+                messages=message_history,
                 max_tokens=500,
                 stream=False,
             )
         agent_message = Message.objects.get(id=messageid)
-        agent_message.content = response.choices[0].message.content
+        response_message = parse_markdown(response.choices[0].message.content)
+        agent_message.content = response_message
         agent_message.save()
-        print(response.choices[0].message.content)
     except:
         agent_message = Message.objects.get(id=messageid)
         agent_message.sender = "system"
