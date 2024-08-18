@@ -148,7 +148,6 @@ def llm_response(messageid, messages):
         agent_message.content = "Something went wrong while generating response"
         agent_message.save()
 
-@login_required
 def create_chat(request):
     context = {}
     if request.user.is_authenticated:
