@@ -12,7 +12,7 @@
               {% include 'chat/partials/message.html' %}
           {% endfor %}
           <div id="response"
-            hx-get="{% url 'get_response' message.chat.id %}" 
+            hx-get="{% url 'get_response' chat.id %}" 
             hx-trigger="load, every 5s" 
             hx-target="#response"
             hx-swap="outerHTML"

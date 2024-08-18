@@ -123,6 +123,7 @@ def get_response(request, chat_id):
 
 def llm_response(messageid, messages):
     try:
+        print("Started")
         client = InferenceClient(
             "microsoft/Phi-3-mini-4k-instruct",
             token="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",
@@ -140,6 +141,7 @@ def llm_response(messageid, messages):
         agent_message = Message.objects.get(id=messageid)
         agent_message.content = response.choices[0].message.content
         agent_message.save()
+        print(response.choices[0].message.content)
     except:
         agent_message = Message.objects.get(id=messageid)
         agent_message.sender = "system"
