@@ -133,7 +133,7 @@ def llm_response(messageid, messages):
             message = {}
             message["role"] = m.role
             message["content"] = m.content
-        print(messages)
+        print(message_history)
         response = client.chat_completion(
                 messages=messages,
                 max_tokens=500,
