@@ -138,7 +138,8 @@ def llm_response(messageid, messages):
             )
         agent_message = Message.objects.get(id=messageid)
         response_message = parse_markdown(response.choices[0].message.content)
-        agent_message.content = response_message
+        agent_message.content = response.choices[0].message.content
+        agent_message.content_html = response_message
         agent_message.save()
     except:
         agent_message = Message.objects.get(id=messageid)

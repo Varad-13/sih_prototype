@@ -10,6 +10,7 @@ class Message(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages')
     sender = models.CharField(max_length=7)
     content = models.TextField()
+    content_html = models.TextField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     class Meta:
         ordering = ['timestamp']
