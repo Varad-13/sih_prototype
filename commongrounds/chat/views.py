@@ -59,7 +59,7 @@ def chat_view(request, chat_id):
             message_history = []
             for m in chat_history:
                 message = {}
-                message["role"] = m.role
+                message["role"] = m.sender
                 message["content"] = m.content
                 message_history.appent(message)
             thread = threading.Thread(target=llm_response, args=(agent_message.id,message_history))
@@ -110,7 +110,7 @@ def chat_view(request, chat_id):
         message_history = []
         for m in messages:
             message = {}
-            message["role"] = m.role
+            message["role"] = m.sender
             message["content"] = m.content
             message_history.append(message)
         thread = threading.Thread(target=llm_response, args=(agent_message.id,message_history))
