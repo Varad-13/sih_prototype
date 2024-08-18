@@ -81,15 +81,15 @@ def chat_view(request, chat_id):
                 chat=chat
             )
             return render(request, 'chat/chat_ended.html', context)
-        context = []
+        llm_context = []
         for provider in providers:
             person = {}
             person["username"] = provider.provider.name
             person["bio"] = provider.provider.bio
             person["service_description"] = provider.description
             person["rate_per_hour"] = provider.rate
-            context.append(person)
-        context_str = json.dumps(context, indent=4)
+            llm_context.append(person)
+        context_str = json.dumps(llm_context, indent=4)
         Message.objects.create(
             sender="system",
             content=f"context:\n{context_str}",
