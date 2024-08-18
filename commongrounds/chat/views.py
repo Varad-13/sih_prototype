@@ -115,7 +115,7 @@ def get_response(request, chat_id):
     if chat.user != user_profile:
         return HttpResponse('Not Found', status=404)
     response = chat.messages.last()
-    if response.content == "✨ Thinking...":
+    if response.content == "Thinking...":
         response_html = render_to_string('chat/partials/hot_response.html',  {'message': response})
     else:
         response_html = render_to_string('chat/partials/response.html',  {'message': response})
