@@ -65,9 +65,9 @@ def chat_view(request, chat_id):
     message = chat.messages.last()
     if message and message.sender == "user":
         if "resume" in message.content.lower():
-            providers = Service.objects.filter(service_type__service_name == "resume consultation")
+            providers = Service.objects.filter(service_type__service_name = "resume consultation")
         elif "fitness" in message.content.lower():
-            providers = Service.objects.filter(service_type__service_name == "Fitness Training")
+            providers = Service.objects.filter(service_type__service_name = "Fitness Training")
         else:
             print("triggered")
             agent_message = Message.objects.create(
@@ -88,8 +88,8 @@ def chat_view(request, chat_id):
             person["bio"] = provider.provider.bio
             person["service_description"] = provider.description
             person["rate_per_hour"] = provider.rate
-            context.appent(person)
-        context_str = json.dump(context, indent=4)
+            context.append(person)
+        context_str = json.dumps(context, indent=4)
         Message.object.create(
             sender="system",
             content=f"context:\n{context_str}",
