@@ -55,12 +55,18 @@ def chat_view(request, chat_id):
             )
             agent_message_html = render_to_string('chat/partials/hot_response.html', {'message': agent_message})
             messages = user_message_html + agent_message_html
-            
-            thread = threading.Thread(target=llm_response, args=(agent_message.id,))
+            chat_history = Message.objects.all()
+            message_history = []
+            for m in chat_history:
+                message = {}
+                message["role"] = m.role
+                message["content"] = m.content
+                message_history.appent(message)
+            thread = threading.Thread(target=llm_response, args=(agent_message.id,message_history))
             thread.start()
             return HttpResponse(messages)
-
-        return HttpResponse('Invalid request', status=400)
+        else:
+            return HttpResponse('Invalid request', status=400)
     
     message = chat.messages.last()
     if message and message.sender == "user":
@@ -101,7 +107,13 @@ def chat_view(request, chat_id):
             chat=chat
         )
         messages = chat.messages.all()
-        thread = threading.Thread(target=llm_response, args=(agent_message.id,messages))
+        message_history = []
+        for m in messages:
+            message = {}
+            message["role"] = m.role
+            message["content"] = m.content
+            message_history.append(message)
+        thread = threading.Thread(target=llm_response, args=(agent_message.id,message_history))
         thread.start()
         return render(request, 'chat/new_chat.html', context)
     elif message and message.content == "This chat has ended." and message.sender == "system":
@@ -128,14 +140,8 @@ def llm_response(messageid, messages):
             "microsoft/Phi-3-mini-4k-instruct",
             token="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",
         )
-        message_history = []
-        for m in messages:
-            message = {}
-            message["role"] = m.role
-            message["content"] = m.content
-        print(message_history)
         response = client.chat_completion(
-                messages=message_history,
+                messages=messages,
                 max_tokens=500,
                 stream=False,
             )
