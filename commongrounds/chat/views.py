@@ -53,8 +53,8 @@ def chat_view(request, chat_id):
             )
             agent_message_html = render_to_string('chat/partials/hot_response.html', {'message': agent_message})
             messages = user_message_html + agent_message_html
-            message_history = Message.objects.all()
-            thread = threading.Thread(target=llm_response, args=(agent_message.id,message_history))
+            message_history = chat.messages.all()
+            thread = threading.Thread(target=llm_response, args=(agent_message.id,message_history,))
             thread.start()
             return HttpResponse(messages)
         else:
@@ -99,7 +99,7 @@ def chat_view(request, chat_id):
         )
         messages = chat.messages.all()
         
-        thread = threading.Thread(target=llm_response, args=(agent_message.id,message_history))
+        thread = threading.Thread(target=llm_response, args=(agent_message.id,messages,))
         thread.start()
         return render(request, 'chat/new_chat.html', context)
     elif message and message.content == "This chat has ended." and message.sender == "system":
