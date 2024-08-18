@@ -8,8 +8,21 @@
     <!-- Message Area -->
     <div id="message-area" class="message-area my-4 w-full">
       <div  id="inner-message" class="flex flex-col gap-2.5 max-w-5xl mx-auto">
+         <div class="flex flex-col gap-2 p-4 self-start max-w-2xl mr-3">
+            <div class="flex flex-inline gap-1 text-gray-600 dark:text-gray-400">
+                <span class="material-symbols-outlined text-gray-600 dark:text-gray-400">
+                    support_agent
+                </span>
+                <p class="underline">Agent</p>
+            </div>
+            <p class="text-md font-normal border-0 text-gray-900 dark:text-white">Hey there! I'm Agent your very own assistant to help you find and meet amazing people. How can I help you today?</p>
+         </div>
          {% for message in chat.messages.all %}
-            {% include 'chat/partials/message.html' %}
+            {% if message.sender == "user" %}
+            <div class="flex flex-col flex-wrap p-4 border self-end border-gray-200 bg-gray-300 rounded-l-xl rounded-br-xl dark:border-gray-600 dark:bg-gray-800 ml-10">
+               <p class="text-md font-normal border-0 text-gray-900 dark:text-white">{{ message.content }}</p>
+            </div>
+            {% endif %}
          {% endfor %}
           <div id="response"
             hx-get="{% url 'get_response' chat.id %}" 

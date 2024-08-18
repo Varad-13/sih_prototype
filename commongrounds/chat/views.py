@@ -96,7 +96,6 @@ def chat_view(request, chat_id):
         agent_message = Message.objects.create(
             sender="agent", 
             content="Thinking...",
-            content_html=render_to_string('chat/partials/hot_response.html', {"messaage.content":"Thinking..."}),
             chat=chat
         )
         messages = chat.messages.all()
