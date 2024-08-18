@@ -4,7 +4,7 @@
 {% block title %}Chat{% endblock %}
 {% block page_title %}Start a new chat{% endblock %}
 {% block content %}
-<div class="h-full my-20 rounded-xl p-3 flex flex-col self-center justify-between sm:max-w-3xl sm:my-60 sm:ml-64 sm:p-6">
+<div class="h-full my-20 rounded-xl p-3 flex flex-col self-center justify-between sm:max-w-3xl sm:mb-60 sm:ml-64 sm:p-6">
    <div class="flex flex-col gap-2 p-4 self-star w-full">
       <div class="flex flex-inline gap-1 dark:text-gray-400">
           <span class="material-symbols-outlined dark:text-gray-400">
@@ -32,52 +32,52 @@
       </div>
       <p class="text-md font-normal border-0 text-gray-900 dark:text-white">...your very own assistant to help you find and meet amazing people!</p>
       {% endif %}
-  </div>
-   {% if request.user.is_authenticated %}
-      {% if userprofile %}
+   </div>
+      {% if request.user.is_authenticated %}
+         {% if userprofile %}
+         <div class="w-full">
+            <div class="w-auto my-2">
+               <p class="text-md font-extralight tracking-tight border-0 ml-4 text-gray-900 dark:text-white">Start typing to find <span id="typewriter" class="tracking-wide font-semibold"></span> </p>
+            </div>
+            <form 
+               class="inline-flex mb-0 w-full h-10 px-2"
+               hx-post="{% url 'create_chat' %}" 
+               hx-trigger="submit" 
+               hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' 
+            >
+               <input type="text" name="title" 
+                  class="block pl-4 w-full flex flex-wrap text-sm text-gray-900 bg-gray-50 h-auto rounded-s-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" 
+                  placeholder='"Help me find a..."'>
+               <button type="submit" class="px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-e-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                  <span class="material-symbols-outlined">
+                     send
+                  </span>
+               </button>
+            </form>
+         </div>
+         {% endif %}
+      {% else %}
       <div class="w-full">
          <div class="w-auto my-2">
-            <p class="text-md font-extralight tracking-tight border-0 ml-4 text-gray-900 dark:text-white">Start typing to find <span id="typewriter" class="tracking-wide font-semibold"></span> </p>
+            <p class="text-md font-extralight tracking-tight border-0 ml-4 text-gray-900 dark:text-white">With Commongrounds, you can find <span id="typewriter" class="tracking-wide font-semibold"></span> </p>
          </div>
-         <form 
-            class="inline-flex mb-0 w-full h-10 px-2"
-            hx-post="{% url 'create_chat' %}" 
-            hx-trigger="submit" 
-            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' 
-         >
-            <input type="text" name="title" 
-               class="block pl-4 w-full flex flex-wrap text-sm text-gray-900 bg-gray-50 h-auto rounded-s-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" 
-               placeholder='"Help me find a..."'>
-            <button type="submit" class="px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-e-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-               <span class="material-symbols-outlined">
-                  send
-               </span>
-            </button>
-         </form>
+         <form class="inline-flex mb-0 w-full h-10 px-2">
+               <input type="text" name="title" 
+                  class="block pl-4 w-full flex flex-wrap text-sm text-gray-900 bg-gray-300 rounded-s-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-400 dark:border-gray-600 dark:placeholder-gray-900 dark:text-white dark:focus:border-blue-500" 
+                  placeholder='Please login to get started'
+                  disabled>
+               <button 
+                  type="submit" 
+                  class="px-5 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-e-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                  disabled>
+                  <span class="material-symbols-outlined text-white dark:text-gray-500">
+                     send
+                  </span>
+               </button>
+            </form>
       </div>
       {% endif %}
-   {% else %}
-   <div class="w-full">
-      <div class="w-auto my-2">
-         <p class="text-md font-extralight tracking-tight border-0 ml-4 text-gray-900 dark:text-white">With Commongrounds, you can find <span id="typewriter" class="tracking-wide font-semibold"></span> </p>
-      </div>
-      <form class="inline-flex mb-0 w-full h-10 px-2">
-            <input type="text" name="title" 
-               class="block pl-4 w-full flex flex-wrap text-sm text-gray-900 bg-gray-300 rounded-s-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-400 dark:border-gray-600 dark:placeholder-gray-900 dark:text-white dark:focus:border-blue-500" 
-               placeholder='Please login to get started'
-               disabled>
-            <button 
-               type="submit" 
-               class="px-5 text-sm font-medium text-gray-900 focus:outline-none bg-gray-300 rounded-e-full hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-               disabled>
-               <span class="material-symbols-outlined text-white dark:text-gray-500">
-                  send
-               </span>
-            </button>
-         </form>
-   </div>
-   {% endif %}
-   <div>
+      <div>
       {% if request.user.is_authenticated %}
       {% else %}
       <div class="inline-flex w-full px-4">
