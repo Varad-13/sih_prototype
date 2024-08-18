@@ -90,7 +90,7 @@ def chat_view(request, chat_id):
             person["rate_per_hour"] = provider.rate
             context.append(person)
         context_str = json.dumps(context, indent=4)
-        Message.object.create(
+        Message.objects.create(
             sender="system",
             content=f"context:\n{context_str}",
             chat=chat
