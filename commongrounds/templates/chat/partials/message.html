@@ -6,7 +6,11 @@
         </span>
         <p class="underline">Agent</p>
     </div>
+    {% if message.content_html %}
     <p class="text-md font-normal border-0 text-gray-900 dark:text-white">{{ message.content_html | safe }}</p>
+    {% else %}
+    <p class="text-md font-normal border-0 text-gray-900 dark:text-white">{{ message.content }}</p>
+    {% endif %}
 </div>
 {% else %}
     {% if message.sender == "user" %}
