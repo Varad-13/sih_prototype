@@ -135,7 +135,7 @@ def llm_response(messageid, messages):
             message["content"] = m.content
         print(message_history)
         response = client.chat_completion(
-                messages=messages,
+                messages=message_history,
                 max_tokens=500,
                 stream=False,
             )
