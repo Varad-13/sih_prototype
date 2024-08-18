@@ -128,6 +128,7 @@ def llm_response(messageid, messages):
         message["content"] = m.content
         message_history.append(message)
     try:
+        print("working")
         client = InferenceClient(
             "microsoft/Phi-3-mini-4k-instruct",
             token="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",
@@ -137,12 +138,14 @@ def llm_response(messageid, messages):
                 max_tokens=4000,
                 stream=False,
             )
+        print("got response")
         agent_message = Message.objects.get(id=messageid)
         response_message = parse_markdown(response.choices[0].message.content)
         agent_message.content = response.choices[0].message.content
         agent_message.content_html = response_message
         agent_message.save()
     except:
+        print("exception")
         agent_message = Message.objects.get(id=messageid)
         agent_message.sender = "system"
         agent_message.content = "Something went wrong while generating response"
