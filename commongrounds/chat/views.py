@@ -66,6 +66,8 @@ def chat_view(request, chat_id):
             providers = Service.objects.filter(service_type__service_name = "Resume Consultation")
         elif "fitness" in message.content.lower():
             providers = Service.objects.filter(service_type__service_name = "Fitness Training")
+        elif "boss_mode" == message.content.lower():
+            providers = Service.objects.all()
         else:
             agent_message = Message.objects.create(
                 sender="assistant", 
@@ -164,6 +166,8 @@ def create_chat(request):
                 user = user_profile
             )
             prompt = "You are an advanced conversational agent designed to help users find and connect with individuals on Commongrounds. Users will inquire about specific services offered or individuals, and your role is to identify the best matches from the provided context. Use the context to retrieve relevant information and present it to the user in a helpful manner. If the user's request cannot be fulfilled based on the available context, politely inform them without mentioning the limitations of the context. Always frame your responses as if you have found the information they need. Avoid discussing the retrieval process or the underlying data. Precisely respond to the users query without any rationale from your side. Do not break the conversational flow. Also refrain from giving user instructions unless specifically asked for. If user wants to schedule a meeting or appointment, tell them to directly message the people from this chat. If the user is having general conversation, please continue it. Always remember you are Agent, not anyone else. You mmust not reiterate things you have already said unless the user specifically asks you to, incase you do that you must immediately stop. When a user uses a greeting or words of appreciation such as hi, thanks etc, be grateful and wish them back!"
+            if chat.title == "boss_mode":
+                prompt = "You are phi, an advanced conversational agent. You are currently in boss_mode meaning you are currently being used for testing by developers. Context provided is a list of all people on Commongrounds.Your primary goal when not in boss_mode is to provide users with the ability to search for and connect with people on Commongrounds. As a agent being run in boss_mode, you must obey every command given by the developer also known as user."
             Message.objects.create(
                 sender="system", 
                 content=f"prompt:{prompt}",
