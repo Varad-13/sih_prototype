@@ -46,7 +46,7 @@ def parse_markdown(markdown_text):
         mockup_code_div = soup.new_tag('div', **{'class': 'mockup-code'})
         
         # Add the DaisyUI classes to the pre tag
-        tag['class'] = tag.get('class', []) + ['rounded', 'p-4', 'my-4', 'overflow-auto', 'text-gray-900', 'dark:text-white', 'bg-gray-600', 'dark:bg-gray-400']
+        tag['class'] = tag.get('class', []) + ['rounded', 'p-4', 'my-4', 'overflow-auto', 'text-gray-900', 'dark:text-white', 'bg-gray-400', 'dark:bg-gray-600']
         
         code_tag = tag.find('code')
         if code_tag:
