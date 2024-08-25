@@ -9,7 +9,7 @@ def parse_markdown(markdown_text):
 
     # Add DaisyUI classes to various HTML elements
     for tag in soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']):
-        tag['class'] = tag.get('class', []) + ['font-bold', 'my-4']
+        tag['class'] = tag.get('class', []) + ['font-bold']
         if tag.name == 'h1':
             tag['class'] += ['text-3xl', 'text-gray-900', 'dark:text-white']
         elif tag.name == 'h2':
@@ -30,7 +30,7 @@ def parse_markdown(markdown_text):
             tag['id'] = header_id
 
     for tag in soup.find_all('p'):
-        tag['class'] = tag.get('class', []) + ['my-2', 'text-gray-900', 'dark:text-white']
+        tag['class'] = tag.get('class', []) + ['mb-2', 'text-gray-900', 'dark:text-white']
 
     for tag in soup.find_all('ul'):
         tag['class'] = tag.get('class', []) + ['list-disc', 'ml-5', 'text-gray-900', 'dark:text-white']
@@ -46,7 +46,7 @@ def parse_markdown(markdown_text):
         mockup_code_div = soup.new_tag('div', **{'class': 'mockup-code'})
         
         # Add the DaisyUI classes to the pre tag
-        tag['class'] = tag.get('class', []) + ['rounded', 'p-4', 'my-4', 'overflow-auto', 'text-gray-900', 'dark:text-white']
+        tag['class'] = tag.get('class', []) + ['rounded', 'p-4', 'my-4', 'overflow-auto', 'text-gray-900', 'dark:text-white', 'bg-gray-600', 'dark:bg-gray-400']
         
         code_tag = tag.find('code')
         if code_tag:
