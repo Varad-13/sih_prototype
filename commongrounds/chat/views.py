@@ -159,7 +159,7 @@ def create_chat(request):
         else:
             return redirect('onboarding')
     if request.method == 'POST':
-        if request.POST.get('title'):
+        if request.POST.get('title').strip():
             title = request.POST.get('title')
             chat = Chat.objects.create(
                 title = request.POST.get('title'),
@@ -186,4 +186,6 @@ def create_chat(request):
             response = HttpResponse()
             response["HX-Redirect"] = f'/chat/{chat.id}'
             return response
+        else:
+            return 
     return render(request, 'core/index.html', context)
