@@ -81,7 +81,7 @@
       {% if request.user.is_authenticated %}
       {% else %}
       <div class="inline-flex w-full px-4">
-         <a href="{% url 'account_login' %}" class="text-white rounded-full text-center w-full bg-blue-600 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500">Login</a>
+         <a href="{% url 'account_login' %}" class="text-white rounded-full text-center w-full bg-blue-700 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 hover:bg-blue-800 dark:hover:bg-blue-500">Login</a>
          <a href="{% url 'account_signup' %}" class="text-black rounded-full text-center w-full bg-gray-300 font-medium text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">Signup</a>
       </div>
       {% endif %}
