@@ -3,13 +3,13 @@
 {% block page_title %}People on Commongrounds{% endblock %}
 {% block content %}
 <div class="p-4 sm:ml-64 flex-col justify-end">
-    <div class="grid grid-cols-3 flex-wrap md:flex-row items-center justify-center gap-6">    
+    <div class="grid grid-cols-1 md:grid-cols-3 max-h-80 items-center justify-center gap-6">    
     {% for user, services in users_with_services.items %}
-        <div class="w-full h-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="flex w-full h-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div class="flex flex-col items-center mt-12 mb-4">
                 <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="{{ user.profile_image.file.url }}" alt="{{ user.name }} image"/>
                 <h5 class="mb-1 text-xl text-semibold font-medium text-gray-900 dark:text-white">{{ user.name }}</h5>
-                <h5 class="mb-1 text-sm font-medium text-gray-700 dark:text-gray-400">{{ user.bio }}</h5>
+                <h5 class="mb-1 text-sm font-medium text-gray-700 dark:text-gray-400 px-2">{{ user.bio[:50] }}...<a class="text-blue-700">read more</a></h5>
                 <!-- <span class="text-sm text-gray-500 dark:text-gray-400">{{ user.user_type }}</span> -->
             </div>
             <div class="flex flex-col gap-4 p-4">
