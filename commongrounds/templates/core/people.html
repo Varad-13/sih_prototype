@@ -6,7 +6,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 max-h-80 items-center justify-center gap-6">    
     {% for user, services in users_with_services.items %}
         <div class="flex flex-col w-full h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <div class="flex flex-row items-start my-6 px-4 gap-2">
+            <div class="flex flex-row items-start mt-6 px-4 gap-2">
                 <img class="w-24 h-24 rounded-full shadow-lg" src="{{ user.profile_image.file.url }}" alt="{{ user.name }} image"/>
                 <span class="flex flex-col">
                     <h5 class="text-xl text-semibold text-gray-900 dark:text-white">{{ user.name }}</h5>
