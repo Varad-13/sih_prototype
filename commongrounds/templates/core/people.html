@@ -10,7 +10,7 @@
                 <img class="w-24 h-24 rounded-full shadow-lg" src="{{ user.profile_image.file.url }}" alt="{{ user.name }} image"/>
                 <span class="flex flex-col">
                     <h5 class="text-xl text-semibold text-gray-900 dark:text-white">{{ user.name }}</h5>
-                    <h5 class="text-sm font-normal text-gray-700 dark:text-gray-400 text-wrap">{{ user.bio|slice:":50" }}...<a class="text-blue-700 dark:text-blue-600">read more</a></h5>    
+                    <h5 class="text-sm font-normal text-gray-700 dark:text-gray-400 text-wrap">{{ user.bio|slice:":50" }}...</h5>    
                 </span>
                 <!-- <span class="text-sm text-gray-500 dark:text-gray-400">{{ user.user_type }}</span> -->
             </div>
