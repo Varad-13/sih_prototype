@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Chat | CommonGrounds</title>
+        <title>People | CommonGrounds</title>
         
         <!-- Tailwind CSS and Flowbite -->
         <link href="./static/core/css/tailwind.min.css" rel="stylesheet">
@@ -33,8 +33,7 @@
         <style>
             /* width */
             ::-webkit-scrollbar {
-               width: 5px;
-               height: 5px; 
+               width: 5px; 
             }
             
             /* Handle */
@@ -66,7 +65,7 @@
          <div class="flex flex-row max-w-full items-center p-4 hidden justify-between bg-gray-50 dark:bg-gray-800 sm:ml-64 sm:flex">
             <a></a>
             <a class="text-gray-900 font-medium dark:text-white text-xl text-center">
-               <h2>resume</h2>
+               <h2>People on Commongrounds</h2>
             </a>
             <a href="/chat/new/">
                <span class="material-symbols-outlined text-gray-900 dark:text-white">
@@ -282,6 +281,10 @@
                      <span class="flex-1  whitespace-wrap">boss_mode</span>
                   </a>
                   
+                  <a href="/chat/92/" class="flex mx-3 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                     <span class="flex-1  whitespace-wrap">fggfdgvfdgfdgv</span>
+                  </a>
+                  
                </div>
                
             
@@ -319,203 +322,96 @@
             </ul>  
          </aside>
          
-<div id="message-box" class="h-full mx-1 px-3 sm:ml-64 flex-col justify-end overflow-y-auto">
-    <!-- Message Area -->
-    <div id="message-area" class="message-area my-4 w-full">
-      <div  id="inner-message" class="flex flex-col gap-2.5 max-w-5xl mx-auto">
-          
-              
+<div class="p-4 sm:ml-64 flex-col justify-end">
+    <div class="flex flex-col flex-wrap md:flex-row items-center justify-center gap-6">    
     
-
-
-
-<!--
-    <div class="flex flex-col gap-2 p-4 self-start max-w-2xl mr-3">
-        <div class="flex flex-inline gap-1 dark:text-gray-400">
-            <span class="material-symbols-outlined dark:text-gray-400">
-                manufacturing
-            </span>
-            <p class="underline">System</p>
+        <div class="w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex flex-col items-center mt-12 mb-4">
+                <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/media/images/1698720885128.jpeg" alt="Arun image"/>
+                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Arun</h5>
+                <!-- <span class="text-sm text-gray-500 dark:text-gray-400"></span> -->
+            </div>
+            <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-3">
+                
+                    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div class="p-4">
+                            <h5 class="text-lg font-semibold text-gray-900 dark:text-white">Fitness Training</h5>
+                            <div class="flex flex-row mt-4 md:mt-6 justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Rate: $20.0/hr</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Locality: Sydney</p>        
+                                </div>
+                                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send Message</a>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
         </div>
-    <p class="text-md font-normal border-0 text-gray-900 dark:text-white">prompt:You are an advanced conversational agent designed to help users find and connect with individuals on Commongrounds. Users will inquire about specific services offered or individuals, and your role is to identify the best matches from the provided context. Use the context to retrieve relevant information and present it to the user in a helpful manner. If the user&#x27;s request cannot be fulfilled based on the available context, politely inform them without mentioning the limitations of the context. Always frame your responses as if you have found the information they need. Avoid discussing the retrieval process or the underlying data. Precisely respond to the users query without any rationale from your side. Do not break the conversational flow. Also refrain from giving user instructions unless specifically asked for. If user wants to schedule a meeting or appointment, tell them to directly message the people from this chat. If the user is having general conversation, please continue it. Always remember you are Agent, not anyone else. You mmust not reiterate things you have already said unless the user specifically asks you to, incase you do that you must immediately stop. When a user uses a greeting or words of appreciation such as hi, thanks etc, be grateful and wish them back!</p>
-</div>-->
-
-          
-              
-<div class="flex flex-col gap-2 p-4 self-start max-w-2xl mr-3">
-    <div class="flex flex-inline gap-1 text-gray-600 dark:text-gray-400">
-        <span class="material-symbols-outlined text-gray-600 dark:text-gray-400">
-            support_agent
-        </span>
-        <p class="underline">Agent</p>
-    </div>
     
-    <p class="text-md font-normal border-0 text-gray-900 dark:text-white">Hey there! I&#x27;m Agent your very own assistant to help you find and meet amazing people. How can I help you today?</p>
-    
-</div>
-
-
-
-          
-              
-    
-    <div class="flex flex-col flex-wrap p-4 border self-end border-gray-200 bg-gray-300 rounded-l-xl rounded-br-xl dark:border-gray-600 dark:bg-gray-800 ml-10">
-        <p class="text-md font-normal border-0 text-gray-900 dark:text-white">resume</p>
-    </div>
-    
-
-
-
-          
-              
-    
-
-
-
-<!--
-    <div class="flex flex-col gap-2 p-4 self-start max-w-2xl mr-3">
-        <div class="flex flex-inline gap-1 dark:text-gray-400">
-            <span class="material-symbols-outlined dark:text-gray-400">
-                manufacturing
-            </span>
-            <p class="underline">System</p>
+        <div class="w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex flex-col items-center mt-12 mb-4">
+                <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/media/images/1710051832982.jpeg" alt="Vaishnavi image"/>
+                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Vaishnavi</h5>
+                <!-- <span class="text-sm text-gray-500 dark:text-gray-400"></span> -->
+            </div>
+            <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-3">
+                
+                    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div class="p-4">
+                            <h5 class="text-lg font-semibold text-gray-900 dark:text-white">Fitness Training</h5>
+                            <div class="flex flex-row mt-4 md:mt-6 justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Rate: $4.0/hr</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Locality: Sydney</p>        
+                                </div>
+                                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send Message</a>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
         </div>
-    <p class="text-md font-normal border-0 text-gray-900 dark:text-white">context:
-[
-    {
-        &quot;username&quot;: &quot;Varad&quot;,
-        &quot;bio&quot;: &quot;Hey! I&#x27;m the developer who helped build CommonGrounds POC&quot;,
-        &quot;service_provided&quot;: &quot;Resume Consultation&quot;,
-        &quot;service_description&quot;: &quot;I will help you improve your resume for specific jobs and roles&quot;,
-        &quot;rate_per_hour&quot;: 10.0
-    }
-]</p>
-</div>-->
-
-          
-              
-<div class="flex flex-col gap-2 p-4 self-start max-w-2xl mr-3">
-    <div class="flex flex-inline gap-1 text-gray-600 dark:text-gray-400">
-        <span class="material-symbols-outlined text-gray-600 dark:text-gray-400">
-            support_agent
-        </span>
-        <p class="underline">Agent</p>
+    
+        <div class="w-full max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex flex-col items-center mt-12 mb-4">
+                <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="/media/images/88078870.jpeg" alt="Varad image"/>
+                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">Varad</h5>
+                <!-- <span class="text-sm text-gray-500 dark:text-gray-400"></span> -->
+            </div>
+            <div class="grid grid-cols-1 gap-4 p-4 sm:grid-cols-3">
+                
+                    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div class="p-4">
+                            <h5 class="text-lg font-semibold text-gray-900 dark:text-white">Fitness Training</h5>
+                            <div class="flex flex-row mt-4 md:mt-6 justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Rate: $0.0/hr</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Locality: Sydney</p>        
+                                </div>
+                                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send Message</a>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div class="p-4">
+                            <h5 class="text-lg font-semibold text-gray-900 dark:text-white">Resume Consultation</h5>
+                            <div class="flex flex-row mt-4 md:mt-6 justify-between">
+                                <div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Rate: $10.0/hr</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Locality: Sydney</p>        
+                                </div>
+                                <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send Message</a>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+    
     </div>
-    
-    <p class="text-md font-normal border-0 text-gray-900 dark:text-white"><p class="my-2 text-gray-900 dark:text-white">Great to help! If you're in need of enhancing your resume for specific roles, I recommend Varad, a developer here on CommonGrounds. He provides resume consultation services and can charge you $10 per hour. Would you like to connect with him?</p>
-</p>
-    
 </div>
-
-
-
-          
-              
-    
-    <div class="flex flex-col flex-wrap p-4 border self-end border-gray-200 bg-gray-300 rounded-l-xl rounded-br-xl dark:border-gray-600 dark:bg-gray-800 ml-10">
-        <p class="text-md font-normal border-0 text-gray-900 dark:text-white">Can you tell me more about Varad?</p>
-    </div>
-    
-
-
-
-          
-              
-<div class="flex flex-col gap-2 p-4 self-start max-w-2xl mr-3">
-    <div class="flex flex-inline gap-1 text-gray-600 dark:text-gray-400">
-        <span class="material-symbols-outlined text-gray-600 dark:text-gray-400">
-            support_agent
-        </span>
-        <p class="underline">Agent</p>
-    </div>
-    
-    <p class="text-md font-normal border-0 text-gray-900 dark:text-white"><p class="my-2 text-gray-900 dark:text-white">Varad is a resourceful developer who contributed significantly to the Proof of Concept (PoC) development for CommonGrounds. He's an expert at crafting strong resumes tailored to particular jobs, ensuring your skills and experiences shine! Shall I facilitate a chat with Varad for you?</p>
-</p>
-
-<div class="text-center grid w-full grid-cols-3 max-w-lg gap-4">
-
-   <button class="w-full flex flex-col items-start h-full rounded-xl justify-start bg-gray-200 dark:bg-gray-800 p-2.5 h-full gap-2 sm:w-36" type="button" data-drawer-target="varad-info" data-drawer-show="varad-info" data-drawer-placement="right" aria-controls="drawer-right-example">
-      <img class="rounded-md" src="https://avatars.githubusercontent.com/u/88078870?v=4">
-      <p class="text-md font-semibold border-0 text-gray-900 dark:text-white">Varad</p>
-      <p class="text-sm font-normal border-0 text-gray-600 text-left dark:text-gray-300">Fitness Trainer, Resume Consultant</p>
-   </button>
-
-   <button class="w-full flex flex-col items-start h-full rounded-xl justify-start bg-gray-200 dark:bg-gray-800 p-2.5 h-full gap-2 sm:w-36" type="button" data-drawer-target="varad-info" data-drawer-show="varad-info" data-drawer-placement="right" aria-controls="drawer-right-example">
-      <img class="rounded-md " src="http://209.38.25.206:8000/media/images/1698720885128.jpeg">
-      <p class="text-md font-semibold border-0 text-gray-900 dark:text-white">Arun</p>
-      <p class="text-sm font-normal border-0 text-gray-600 text-left dark:text-gray-300">Fitness Trainer</p>
-   </button>
-
-   <button class="w-full flex flex-col items-start h-full rounded-xl justify-start bg-gray-200 dark:bg-gray-800 p-2.5 h-full gap-2 sm:w-36" type="button" data-drawer-target="varad-info" data-drawer-show="varad-info" data-drawer-placement="right" aria-controls="drawer-right-example">
-      <img class="rounded-md " src="http://209.38.25.206:8000/media/images/1710051832982.jpeg">
-      <p class="text-md ms-2 font-semibold border-0 text-gray-900 dark:text-white">Vaishnavi</p>
-      <p class="text-sm ms-2 font-normal border-0 text-gray-600 text-left dark:text-gray-300">Fitness Trainer</p>
-   </button>
-
-</div>
-<!-- drawer component -->
-<div id="varad-info" class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full max-w-screen-sm w-full bg-gray-300 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-right-label">
-      <div class="flex flex-col gap-4">
-         <div class="container">
-            <button type="button" data-drawer-hide="varad-info" aria-controls="varad-info" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
-               <span class="material-symbols-outlined text-white">
-                  close
-               </span>
-            </button>
-         </div>
-         <div>
-            <h5 class="items-center mb-4 text-base font-semibold text-xl text-gray-500 dark:text-gray-400">Varad Joshi</h5>
-         </div>
-         <a href="#" class="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Learn more</a>
-         <a href="#" class="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Learn more</a>
-      </div>
-</div>
-      
-</div>
-
-   
-
-          
-      </div>
-    </div>
- </div>
-
- <div class="flex p-2 justify-center sm:ml-64">
-   <!-- Chat Box -->
-   <form class="flex flex-row w-full max-w-3xl mb-0"
-      hx-post="/chat/51/" 
-      hx-trigger="submit" 
-      hx-headers='{"X-CSRFToken": "3vUbAOxOnACgUzf7LbQBj2prZ1DQxlYTkAQld7qoGnUXxzXMy8rr9mtKN3DRaeIO"}' 
-      hx-target="#inner-message" 
-      hx-swap="beforeend"
-      autocomplete="off">   
-      <input type="text" id="chat-input" name="content" 
-      class="block pl-4 w-full flex flex-wrap text-sm text-gray-900 bg-gray-50 rounded-s-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 focus:border-4" 
-      placeholder="Type a message...">
-     
-      <button type="submit" 
-      class="px-4 text-sm font-medium text-gray-900 bg-gray-200 rounded-e-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:border-4">
-         <span class="material-symbols-outlined">send</span>
-      </button>
-   </form>
- </div>
-<script>
-   document.addEventListener('htmx:afterSwap', function(event) {
-      if (event.detail.pathInfo.path === "/chat/51/") {
-        document.getElementById('chat-input').value = '';
-      }
-      const chat = document.getElementById('message-box');
-      chat.scrollTo({
-      top: chat.scrollHeight,
-      behavior: 'smooth'
-      });
-   });
-   window.onload = function() {
-      const chat = document.getElementById('message-box');
-      chat.scrollTop = chat.scrollHeight
-   };
-</script>
-
 
       </div>
    </body>
