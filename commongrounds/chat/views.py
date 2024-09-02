@@ -145,11 +145,11 @@ def create_chat(request):
                 content=title,
                 chat=chat
             )
-            if "resume" in title.content.lower():
+            if "resume" in title.lower():
                 providers = Service.objects.filter(service_type__service_name = "Resume Consultation")
-            elif "fitness" in title.content.lower():
+            elif "fitness" in title.lower():
                 providers = Service.objects.filter(service_type__service_name = "Fitness Training")
-            elif "boss_mode" == title.content.lower():
+            elif "boss_mode" == title.lower():
                 providers = Service.objects.all()
             else:
                 agent_message = Message.objects.create(
