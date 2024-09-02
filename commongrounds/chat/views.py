@@ -61,9 +61,14 @@ def chat_view(request, chat_id):
             return HttpResponse('Invalid request', status=400)
     
     message = chat.messages.last()
+    users = []
+    for user in chat.context.all():
+        if user.name in message:
+            users.append(user)
+    if users:
+            context["users"] = users
     if message and message.content == "Thinking...":
         messages = chat.messages.all()
-        
         thread = threading.Thread(target=llm_response, args=(message.id,messages,))
         thread.start()
         return render(request, 'chat/new_chat.html', context)
