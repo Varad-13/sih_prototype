@@ -89,7 +89,7 @@ def get_response(request, chat_id):
                 users.append(user)
         if users:
             context["users"] = users
-        response_html = render_to_string('chat/partials/response.html')
+        response_html = render_to_string('chat/partials/response.html', context)
     return HttpResponse(response_html)
 
 def llm_response(messageid, messages):
