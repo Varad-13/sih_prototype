@@ -81,7 +81,10 @@ def get_response(request, chat_id):
     if response.content == "Thinking...":
         response_html = render_to_string('chat/partials/hot_response.html',  {'message': response})
     else:
-        response_html = render_to_string('chat/partials/response.html',  {'message': response})
+        context = {}
+        context.message = response
+        
+        response_html = render_to_string('chat/partials/response.html')
     return HttpResponse(response_html)
 
 def llm_response(messageid, messages):
@@ -166,6 +169,7 @@ def create_chat(request):
             for provider in providers:
                 chat.context.add(provider.provider)
                 person = {}
+                person["id"] = provider.provider.id
                 person["username"] = provider.provider.name
                 person["bio"] = provider.provider.bio
                 person["service_provided"] = provider.service_type.service_name
