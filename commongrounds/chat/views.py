@@ -61,45 +61,7 @@ def chat_view(request, chat_id):
             return HttpResponse('Invalid request', status=400)
     
     message = chat.messages.last()
-    if message and message.sender == "user":
-        if "resume" in message.content.lower():
-            providers = Service.objects.filter(service_type__service_name = "Resume Consultation")
-        elif "fitness" in message.content.lower():
-            providers = Service.objects.filter(service_type__service_name = "Fitness Training")
-        elif "boss_mode" == message.content.lower():
-            providers = Service.objects.all()
-        else:
-            agent_message = Message.objects.create(
-                sender="assistant", 
-                content="Sorry no users found matching your request.",
-                chat=chat
-            )
-            Message.objects.create(
-                sender="system", 
-                content="This chat has ended.",
-                chat=chat
-            )
-            return render(request, 'chat/chat_ended.html', context)
-        llm_context = []
-        for provider in providers:
-            person = {}
-            person["username"] = provider.provider.name
-            person["bio"] = provider.provider.bio
-            person["service_provided"] = provider.service_type.service_name
-            person["service_description"] = provider.description
-            person["rate_per_hour"] = provider.rate
-            llm_context.append(person)
-        context_str = json.dumps(llm_context, indent=4)
-        Message.objects.create(
-            sender="system",
-            content=f"context:\n{context_str}",
-            chat=chat
-        )
-        agent_message = Message.objects.create(
-            sender="assistant", 
-            content="Thinking...",
-            chat=chat
-        )
+    if message and message.content == "Thinking...":
         messages = chat.messages.all()
         
         thread = threading.Thread(target=llm_response, args=(agent_message.id,messages,))
@@ -181,6 +143,44 @@ def create_chat(request):
             Message.objects.create(
                 sender="user",
                 content=title,
+                chat=chat
+            )
+            if "resume" in title.content.lower():
+                providers = Service.objects.filter(service_type__service_name = "Resume Consultation")
+            elif "fitness" in title.content.lower():
+                providers = Service.objects.filter(service_type__service_name = "Fitness Training")
+            elif "boss_mode" == title.content.lower():
+                providers = Service.objects.all()
+            else:
+                agent_message = Message.objects.create(
+                    sender="assistant", 
+                    content="Sorry no users found matching your request.",
+                    chat=chat
+                )
+                Message.objects.create(
+                    sender="system", 
+                    content="This chat has ended.",
+                    chat=chat
+                )
+            llm_context = []
+            for provider in providers:
+                chat.context.add(provider.provider)
+                person = {}
+                person["username"] = provider.provider.name
+                person["bio"] = provider.provider.bio
+                person["service_provided"] = provider.service_type.service_name
+                person["service_description"] = provider.description
+                person["rate_per_hour"] = provider.rate
+                llm_context.append(person)
+            context_str = json.dumps(llm_context, indent=4)
+            Message.objects.create(
+                sender="system",
+                content=f"context:\n{context_str}",
+                chat=chat
+            )
+            agent_message = Message.objects.create(
+                sender="assistant", 
+                content="Thinking...",
                 chat=chat
             )
             response = HttpResponse()

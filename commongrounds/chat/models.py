@@ -5,6 +5,7 @@ from core.models import Userprofile
 class Chat(models.Model):
     title = models.CharField(max_length=255)
     user = models.ForeignKey(Userprofile, on_delete=models.CASCADE, related_name='chats')
+    context = models.ManyToManyField(Userprofile)
 
 class Message(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages')
