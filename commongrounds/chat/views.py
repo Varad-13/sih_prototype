@@ -63,7 +63,7 @@ def chat_view(request, chat_id):
     message = chat.messages.last()
     users = []
     for user in chat.context.all():
-        if user.name in message:
+        if user.name in message.content:
             users.append(user)
     if users:
             context["users"] = users
