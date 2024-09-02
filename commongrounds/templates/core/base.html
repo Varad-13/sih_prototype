@@ -27,6 +27,16 @@
             } else {
                 document.documentElement.classList.remove('dark')
             }   
+            function toggleDrawer(drawerId) {
+               const drawer = document.getElementById(drawerId);
+               if (drawer.classList.contains('translate-x-full')) {
+                  drawer.classList.remove('translate-x-full');
+                  drawer.classList.add('translate-x-0');
+               } else {
+                  drawer.classList.remove('translate-x-0');
+                  drawer.classList.add('translate-x-full');
+               }
+            }
         </script>
 
         <style>
@@ -42,6 +52,8 @@
                border-radius: 2px;
             }
         </style>
+
+        
     </head>
 
     <body id="body" class="bg-gray-100 dark:bg-gray-900">
