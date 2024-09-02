@@ -64,7 +64,7 @@ def chat_view(request, chat_id):
     if message and message.content == "Thinking...":
         messages = chat.messages.all()
         
-        thread = threading.Thread(target=llm_response, args=(agent_message.id,messages,))
+        thread = threading.Thread(target=llm_response, args=(message.id,messages,))
         thread.start()
         return render(request, 'chat/new_chat.html', context)
     elif message and message.content == "This chat has ended." and message.sender == "system":
