@@ -14,7 +14,9 @@
       </div>
     </div>
  </div>
-
+ {% for user in chat.context.all %}
+   {% include 'chat/partials/person_drawer.html'}
+ {% endfor %}
  <div class="flex p-2 justify-center sm:ml-64">
    <!-- Chat Box -->
    <form class="flex flex-row w-full max-w-3xl mb-0"
