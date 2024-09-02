@@ -1,0 +1,16 @@
+<div id="{{user.id}}" class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full max-w-screen-sm w-full bg-gray-300 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-right-label">
+    <div class="flex flex-col gap-4">
+       <div class="container">
+          <button type="button" data-drawer-hide="{{user.id}}" aria-controls="{{user.id}}" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
+             <span class="material-symbols-outlined text-white">
+                close
+             </span>
+          </button>
+       </div>
+       <div>
+          <h5 class="items-center mb-4 text-base font-semibold text-xl text-gray-500 dark:text-gray-400">{{user.name}}</h5>
+       </div>
+       <a href="#" class="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Learn more</a>
+       <a href="#" class="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Learn more</a>
+    </div>
+</div>

@@ -24,6 +24,11 @@
             </div>
             {% endif %}
          {% endfor %}
+         {% for user in chat.context.all %}
+            {% include 'chat/partials/person_drawer.html'}
+            {% include 'chat/partials/person_card.html' %}
+         {% endfor %}
+         
           <div id="response"
             hx-get="{% url 'get_response' chat.id %}" 
             hx-trigger="load, every 5s" 
