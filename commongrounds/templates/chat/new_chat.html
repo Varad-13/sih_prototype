@@ -24,9 +24,9 @@
             </div>
             {% endif %}
          {% endfor %}
-         {% for user in chat.context.all %}
+         <!--{% for user in chat.context.all %}
             {% include 'chat/partials/person_drawer.html' %}
-         {% endfor %}
+         {% endfor %}-->
          
           <div id="response"
             hx-get="{% url 'get_response' chat.id %}" 
