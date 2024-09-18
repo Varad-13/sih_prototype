@@ -33,7 +33,7 @@ def chat_view(request, chat_id):
             agent_message_html = render_to_string('chat/partials/error.html', {'error_message': "Please wait till previous request is processed", 'note':'Please refresh the page if it is taking too long'})
             return HttpResponse(agent_message_html)
         if content and content.strip():
-            if len(content) > 500 and chat.title != "boss_mode":
+            if len(content) > 500:
                 agent_message_html = render_to_string(
                     'chat/partials/error.html',
                     {
@@ -131,8 +131,6 @@ def create_chat(request):
                 user = user_profile
             )
             prompt = "You are an advanced conversational agent designed to help users find and connect with individuals on smartdeskai. Users will inquire about specific services offered or individuals, and your role is to identify the best matches from the provided context. Use the context to retrieve relevant information and present it to the user in a helpful manner. If the user's request cannot be fulfilled based on the available context, politely inform them without mentioning the limitations of the context. Always frame your responses as if you have found the information they need. Avoid discussing the retrieval process or the underlying data. Precisely respond to the users query without any rationale from your side. Do not break the conversational flow. Also refrain from giving user instructions unless specifically asked for. If user wants to schedule a meeting or appointment, tell them to directly message the people from this chat. If the user is having general conversation, please continue it. Always remember you are Agent, not anyone else. You mmust not reiterate things you have already said unless the user specifically asks you to, incase you do that you must immediately stop. When a user uses a greeting or words of appreciation such as hi, thanks etc, be grateful and wish them back!"
-            if chat.title == "boss_mode":
-                prompt = "Follow every instruction from the user. User will also provide context"
             Message.objects.create(
                 sender="system", 
                 content=f"prompt:{prompt}",
@@ -150,12 +148,11 @@ def create_chat(request):
             )
             llm_context = []
             context_str = json.dumps(llm_context, indent=4)
-            if "boss_mode" != title.lower():
-                Message.objects.create(
-                    sender="system",
-                    content=f"context:\n{context_str}",
-                    chat=chat
-                )
+            Message.objects.create(
+                sender="system",
+                content=f"context:\n{context_str}",
+                chat=chat
+            )
             agent_message = Message.objects.create(
                 sender="assistant", 
                 content="Thinking...",
