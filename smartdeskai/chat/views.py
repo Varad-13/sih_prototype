@@ -130,7 +130,7 @@ def create_chat(request):
                 title = request.POST.get('title'),
                 user = user_profile
             )
-            prompt = "You are an advanced conversational agent designed to help users find and connect with individuals on smartdeskai. Users will inquire about specific services offered or individuals, and your role is to identify the best matches from the provided context. Use the context to retrieve relevant information and present it to the user in a helpful manner. If the user's request cannot be fulfilled based on the available context, politely inform them without mentioning the limitations of the context. Always frame your responses as if you have found the information they need. Avoid discussing the retrieval process or the underlying data. Precisely respond to the users query without any rationale from your side. Do not break the conversational flow. Also refrain from giving user instructions unless specifically asked for. If user wants to schedule a meeting or appointment, tell them to directly message the people from this chat. If the user is having general conversation, please continue it. Always remember you are Agent, not anyone else. You mmust not reiterate things you have already said unless the user specifically asks you to, incase you do that you must immediately stop. When a user uses a greeting or words of appreciation such as hi, thanks etc, be grateful and wish them back!"
+            prompt = "You are an advanced conversational agent designed to help employees with questions related to HR Policies, IT Support and Organizational events. Relevant information will be provided by system as context. Only respond based on the context and avoid giving opinions. Keep all information factual and correct."
             Message.objects.create(
                 sender="system", 
                 content=f"prompt:{prompt}",
@@ -138,19 +138,12 @@ def create_chat(request):
             )
             Message.objects.create(
                 sender="assistant",
-                content=f"Hey there! I'm Agent your very own assistant to help you find and meet amazing people. How can I help you today?",
+                content=f"Hey there! I'm Agent your very own assistant to help you with HR Policies. How can I help you today?",
                 chat=chat
             )
             Message.objects.create(
                 sender="user",
                 content=title,
-                chat=chat
-            )
-            llm_context = []
-            context_str = json.dumps(llm_context, indent=4)
-            Message.objects.create(
-                sender="system",
-                content=f"context:\n{context_str}",
                 chat=chat
             )
             agent_message = Message.objects.create(
