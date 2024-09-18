@@ -11,6 +11,9 @@
     {% else %}
     <p class="text-md font-normal border-0 text-gray-900 dark:text-white">{{ message.content }}</p>
     {% endif %}
+    {% for user in message.context.all %}
+        {% include 'chat/partials/person_card.html' %}
+    {% endfor %}
 </div>
 {% else %}
     {% if message.sender == "user" %}

@@ -13,5 +13,6 @@ class Message(models.Model):
     content = models.TextField()
     content_html = models.TextField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    context = models.ManyToManyField(Userprofile)
     class Meta:
         ordering = ['timestamp']

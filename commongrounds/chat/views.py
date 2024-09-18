@@ -24,7 +24,6 @@ def chat_view(request, chat_id):
 
     if chat.user != user_profile:
         return HttpResponse('Not Found', status=404)
-
     context["chat"] = chat
 
     if request.method == 'POST':
@@ -61,12 +60,6 @@ def chat_view(request, chat_id):
             return HttpResponse('Invalid request', status=400)
     
     message = chat.messages.last()
-    users = []
-    for user in chat.context.all():
-        if user.name in message.content:
-            users.append(user)
-    if users:
-            context["users"] = users
     if message and message.content == "Thinking...":
         messages = chat.messages.all()
         thread = threading.Thread(target=llm_response, args=(message.id,messages,))
@@ -88,12 +81,9 @@ def get_response(request, chat_id):
     else:
         context = {}
         context["message"] = response
-        users = []
         for user in chat.context.all():
             if user.name in response.content:
-                users.append(user)
-        if users:
-            context["users"] = users
+                response.context.add(user)
         response_html = render_to_string('chat/partials/response.html', context)
     return HttpResponse(response_html)
 
