@@ -148,34 +148,7 @@ def create_chat(request):
                 content=title,
                 chat=chat
             )
-            if "resume" in title.lower():
-                providers = Service.objects.filter(service_type__service_name = "Resume Consultation")
-            elif "fitness" in title.lower():
-                providers = Service.objects.filter(service_type__service_name = "Fitness Training")
-            elif "boss_mode" == title.lower():
-                providers = Service.objects.all()
-            else:
-                agent_message = Message.objects.create(
-                    sender="assistant", 
-                    content="Sorry no users found matching your request.",
-                    chat=chat
-                )
-                Message.objects.create(
-                    sender="system", 
-                    content="This chat has ended.",
-                    chat=chat
-                )
             llm_context = []
-            for provider in providers:
-                chat.context.add(provider.provider)
-                person = {}
-                person["id"] = provider.provider.id
-                person["username"] = provider.provider.name
-                person["bio"] = provider.provider.bio
-                person["service_provided"] = provider.service_type.service_name
-                person["service_description"] = provider.description
-                person["rate_per_hour"] = provider.rate
-                llm_context.append(person)
             context_str = json.dumps(llm_context, indent=4)
             if "boss_mode" != title.lower():
                 Message.objects.create(
