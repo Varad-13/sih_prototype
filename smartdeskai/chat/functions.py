@@ -65,3 +65,7 @@ def parse_markdown(markdown_text):
         tag['class'] = tag.get('class', []) + ['hover:text-blue-500', 'text-gray-900', 'dark:text-white']
 
     return str(soup)
+
+
+def parse_pdf(pdf):
+    pass

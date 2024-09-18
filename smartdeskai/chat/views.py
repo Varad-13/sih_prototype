@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from .models import Chat, Message
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-from core.models import Userprofile, Service
+from core.models import Userprofile
 from huggingface_hub import InferenceClient
 
 @login_required
