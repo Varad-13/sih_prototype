@@ -5,6 +5,9 @@
 {% block page_title %}{{ chat.title }}{% endblock %}
 {% block content %}
 <div id="message-box" class="h-full mx-1 px-3 sm:ml-64 flex-col justify-end overflow-y-auto">
+   {% for user in chat.context.all %}
+      {% include 'chat/partials/person_drawer.html' %}
+   {% endfor %}
     <!-- Message Area -->
     <div id="message-area" class="message-area my-4 w-full">
       <div  id="inner-message" class="flex flex-col gap-2.5 max-w-5xl mx-auto">
