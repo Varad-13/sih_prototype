@@ -97,22 +97,8 @@
                   </a>
                
                   <ul class="space-y-2 font-medium pb-2">
-                     <li>
-                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                           <span class="material-symbols-outlined">
-                              location_city
-                           </span>
-                           <span class="flex-1 ms-3 whitespace-nowrap">Venues <sup class="text-xs font-extralight">(WIP)</sup></span>
-                        </a>
-                     </li>
-                     <li>
-                        <a href="{% url 'people' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                           <span class="material-symbols-outlined">
-                              groups
-                           </span>
-                           <span class="flex-1 ms-3 whitespace-nowrap">People</span>
-                        </a>
-                     </li>
+                     
+                     
                   </ul>
                   
                </ul>
@@ -135,22 +121,6 @@
             </div> 
                
             <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 m-3 pt-4 mt-4">
-               <li>
-                  <a href="{% url 'index' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                     <span class="material-symbols-outlined">
-                        forum
-                     </span>
-                     <span class="flex-1 ms-3 whitespace-nowrap">Messages <sup class="text-xs font-extralight">(WIP)</sup></span>
-                  </a>
-               </li>
-               <li>
-                  <a href="{% url 'schedule' %}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                     <span class="material-symbols-outlined">
-                        upcoming
-                     </span>
-                     <span class="flex-1 ms-3 whitespace-nowrap">Schedule <sup class="text-xs font-extralight">(WIP)</sup></span>
-                  </a>
-               </li>
                <li>
                   {% if request.user.is_authenticated %}
                      {% if userprofile %}
