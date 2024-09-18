@@ -4,11 +4,13 @@ import json
 from .functions import *
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Chat, Message
+from .models import Chat, Message, Document
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from core.models import Userprofile
 from huggingface_hub import InferenceClient
+from django.utils import timezone
+
 
 @login_required
 def chat_view(request, chat_id):
@@ -81,15 +83,14 @@ def get_response(request, chat_id):
     else:
         context = {}
         context["message"] = response
-        for user in chat.context.all():
-            if user.name in response.content:
-                response.context.add(user)
         response_html = render_to_string('chat/partials/response.html', context)
     return HttpResponse(response_html)
 
 def llm_response(messageid, messages):
     message_history = []
     for m in messages:
+        if m.id == messageid:
+            continue
         message = {}
         message["role"] = m.sender
         message["content"] = m.content
@@ -108,6 +109,7 @@ def llm_response(messageid, messages):
         response_message = parse_markdown(response.choices[0].message.content)
         agent_message.content = response.choices[0].message.content
         agent_message.content_html = response_message
+        agent_message.timestamp = timezone.now()
         agent_message.save()
     except:
         agent_message = Message.objects.get(id=messageid)
@@ -130,7 +132,7 @@ def create_chat(request):
                 title = request.POST.get('title'),
                 user = user_profile
             )
-            prompt = "You are an advanced conversational agent designed to help employees with questions related to HR Policies, IT Support and Organizational events. Relevant information will be provided by system as context. Only respond based on the context and avoid giving opinions. Keep all information factual and correct."
+            prompt = "You are an advanced conversational agent designed to help employees with questions related to HR Policies, IT Support, and Organizational events. Only respond with factual and accurate information provided by the system. Avoid giving opinions or additional rationale. Respond directly to employee queries in the first person, keeping the conversation clear and concise. When employees greet or thank you, acknowledge them politely. Refrain from repeating yourself unless specifically asked. If an employee needs further assistance, direct them to relevant contacts as appropriate without breaking the conversational flow."
             Message.objects.create(
                 sender="system", 
                 content=f"prompt:{prompt}",
@@ -144,6 +146,17 @@ def create_chat(request):
             Message.objects.create(
                 sender="user",
                 content=title,
+                chat=chat
+            )
+            llm_context = []
+            for document in Document.objects.all():
+                doc = {}
+                doc["name"]= document.title
+                doc["content"]=document.content
+                llm_context.append(doc)
+            Message.objects.create(
+                sender="system",
+                content=json.dumps(llm_context),
                 chat=chat
             )
             agent_message = Message.objects.create(

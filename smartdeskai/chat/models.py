@@ -1,19 +1,12 @@
 # models.py
 from django.db import models
 from core.models import Userprofile
-from sentence_transformers import SentenceTransformer
-
-model = SentenceTransformer('all-MiniLM-L6-v2')
 
 class Document(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     embedding = models.TextField(blank=True, null=True)
-    def save(self, *args, **kwargs):
-        if self.content:
-            embedding_vector = model.encode(self.content)
-            self.embedding = ','.join(map(str, embedding_vector))
-        super().save(*args, **kwargs)
+
 
 class Chat(models.Model):
     title = models.CharField(max_length=255)

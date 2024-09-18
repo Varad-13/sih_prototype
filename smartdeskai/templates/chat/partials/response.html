@@ -10,11 +10,7 @@
     {% else %}
     <p class="text-md font-normal border-0 text-gray-900 dark:text-white">{{ message.content }}</p>
     {% endif %}
-    <div class="text-center grid w-full grid-cols-3 max-w-lg gap-4">
-        {% for user in message.context.all %}
-            {% include 'chat/partials/person_card.html' %}
-        {% endfor %}
-    </div>
+    <p class="text-sm font-extralight border-0 text-gray-900 dark:text-gray-400">{{ message.timestamp|date:"h:i:s A" }}</p>
     <script>
         var errorMessages = document.querySelectorAll('.error-message');
         errorMessages.forEach(function(element) {

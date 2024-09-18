@@ -5,9 +5,6 @@
 {% block page_title %}{{ chat.title }}{% endblock %}
 {% block content %}
 <div id="message-box" class="h-full mx-1 px-3 sm:ml-64 flex-col justify-end overflow-y-auto">
-   {% for user in chat.context.all %}
-      {% include 'chat/partials/person_drawer.html' %}
-   {% endfor %}
     <!-- Message Area -->
     <div id="message-area" class="message-area my-4 w-full">
       <div  id="inner-message" class="flex flex-col gap-2.5 max-w-5xl mx-auto">
@@ -18,13 +15,11 @@
                 </span>
                 <p class="underline">Agent</p>
             </div>
-            <p class="text-md font-normal border-0 text-gray-900 dark:text-white">Hey there! I'm Agent your very own assistant to help you find and meet amazing people. How can I help you today?</p>
+            <p class="text-md font-normal border-0 text-gray-900 dark:text-white">Hey there! I'm Agent your very own assistant to help you with HR Policies. How can I help you today?</p>
          </div>
          {% for message in chat.messages.all %}
             {% if message.sender == "user" %}
-            <div class="flex flex-col flex-wrap p-4 border self-end border-gray-200 bg-gray-300 rounded-l-xl rounded-br-xl dark:border-gray-600 dark:bg-gray-800 ml-10">
-               <p class="text-md font-normal border-0 text-gray-900 dark:text-white">{{ message.content }}</p>
-            </div>
+               {% include 'chat/partials/message.html' %}
             {% endif %}
          {% endfor %}
          <!--{% for user in chat.context.all %}

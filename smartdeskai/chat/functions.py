@@ -1,9 +1,8 @@
 import markdown2
 from bs4 import BeautifulSoup
-import re
 
 def parse_markdown(markdown_text):
-    # Convert Markdown to HTML
+    # Convert Markdown to HTML (markdown2 handles Unicode by default)
     html_content = markdown2.markdown(markdown_text, extras=["fenced-code-blocks", "tables"])
     soup = BeautifulSoup(html_content, 'html.parser')
 
@@ -22,12 +21,6 @@ def parse_markdown(markdown_text):
             tag['class'] += ['text-base', 'text-gray-900', 'dark:text-white']
         elif tag.name == 'h6':
             tag['class'] += ['text-sm', 'text-gray-900', 'dark:text-white']
-
-        # Add an ID to the header for anchor links
-        if not tag.get('id'):
-            # Create an ID from the header text
-            header_id = re.sub(r'\W+', '-', tag.get_text(strip=True)).lower()
-            tag['id'] = header_id
 
     for tag in soup.find_all('p'):
         tag['class'] = tag.get('class', []) + ['mb-2', 'text-gray-900', 'dark:text-white']
@@ -64,8 +57,5 @@ def parse_markdown(markdown_text):
     for tag in soup.find_all('a'):
         tag['class'] = tag.get('class', []) + ['hover:text-blue-500', 'text-gray-900', 'dark:text-white']
 
+    # Return the Unicode-safe HTML string
     return str(soup)
-
-
-def parse_pdf(pdf):
-    pass
